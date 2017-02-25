@@ -1,14 +1,20 @@
 $(document).ready(function() {
 	var input = "";
 	var operation = [];
+	var isTotal = false;
 
 	// Append numeric input
 	$(".btnNum").click(function() {
+		if(isTotal){
+			input = "";
+			isTotal = false;
+		}
 		input += $(this).val();
 		$("#input").html(input);
 	});
 
 	$("#btnAdd").click(function() {
+		isTotal = false;
 		input += $(this).val();
 		$("#input").html(input);
 		operation.push($(this).val());
@@ -16,6 +22,7 @@ $(document).ready(function() {
 	});
 
 	$("#btnSubtract").click(function() {
+		isTotal = false;
 		input += $(this).val();
 		$("#input").html(input);
 		operation.push($(this).val());
@@ -23,6 +30,7 @@ $(document).ready(function() {
 	});
 
 	$("#btnMultiply").click(function() {
+		isTotal = false;
 		input += $(this).val();
 		$("#input").html(input);
 		operation.push($(this).val());
@@ -30,6 +38,7 @@ $(document).ready(function() {
 	});
 
 	$("#btnDivide").click(function() {
+		isTotal = false;
 		input += $(this).val();
 		$("#input").html(input);
 		operation.push($(this).val());
@@ -76,9 +85,11 @@ $(document).ready(function() {
 		
 		operation = [];
 		$("#input").html("");
+		isTotal = true;
 	});
 
 	$("#AC").click(function() {
+		isTotal = false;
 		input = "";
 		operation = [];
 		$("#input").html(input);
@@ -87,6 +98,7 @@ $(document).ready(function() {
 
 	// Clear Entry
 	$("#CE").click(function() {
+		isTotal = false;
 		var re = /[x//+-]/g;
 		// indexes of last arithmetic operator for clearing entry
 		var trimIndex;
@@ -102,7 +114,6 @@ $(document).ready(function() {
 			input = input.substring(0, trimIndex);
 		}
 		$("#input").html(input);
-		
-	})
+	});
 
 });
