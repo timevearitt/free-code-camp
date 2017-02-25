@@ -18,8 +18,6 @@ function checkCashRegister(price, cash, cid) {
     totalCash += cid[i][1] * 100;
   }
   
-  //console.log(totalCash);
-  
   if(changeDue > totalCash){
     return "Insufficient Funds";
   }else if(totalCash === changeDue){
