@@ -1,30 +1,45 @@
-
 function checkCashRegister(price, cash, cid) {
-  var change;
-  var totalCID = 0.00;
-  var changeDue = (cash-price) * 100;
-  // Here is your change, ma'am.
+  var change = [];
+  var denom = [1, 5, 10, 25, 100, 500, 1000, 2000, 10000];
+  var changeDue = (cash - price) * 100;
+  var totalCash = 0;
+  
   if(changeDue === 0){
     return "Closed";
   }
   
-  for(var i=0; i<cid.length; i++){
-    totalCID += cid[i][1] * 100;
+  //determine cash in drawer
+  for(i=0; i<cid.length; i++){
+    totalCash += cid[i][1] * 100;
   }
-
-  if(changeDue > totalCID){
+  
+  //console.log(totalCash);
+  
+  if(changeDue > totalCash){
     return "Insufficient Funds";
-  }else{
-    for(var j=8; j>0; j++){
-      if(changeDue % (cid[j][1] * 100) > 0){
-        change.unshift(cid[j][0], (changeDue % (cid[j][1] * 100) / 2));
-      }
+  }
+  
+  for(j=8; j>0; j--){
+    dc = [];
+    while(changeDue > denom[j] && (cid[j][1] * 100) >= denom[j]){
+      changeDue -= denom[j];
+      cid[j][1] -= denom[j];
+     // console.log("change due=" + changeDue + " denom remain=" + cid[j][1]);
+      dc[0] = cid[j][0];
+      dc[1] += denom[j];
+      console.log(dc[1]);
     }
+   
+    dc[1] = (dc[1] / 100);
+    if(dc[1] > 0){
+      
+      
+      change.push(dc);
+    } 
     
   }
-  
-  
-  
+  //console.log(change);
+  // Here is your change, ma'am.
   return change;
 }
 
