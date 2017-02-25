@@ -1,9 +1,14 @@
+
 function checkCashRegister(price, cash, cid) {
   var change = [];
+  // Set Denomination value * 100 to avoid floating point issues.
   var denom = [1, 5, 10, 25, 100, 500, 1000, 2000, 10000];
+  // changeDue * 100 to avoid floating point
   var changeDue = (cash - price) * 100;
+  // total value of cash in drawer
   var totalCash = 0;
   
+  // Paid exact amount
   if(changeDue === 0){
     return "Closed";
   }
@@ -17,28 +22,33 @@ function checkCashRegister(price, cash, cid) {
   
   if(changeDue > totalCash){
     return "Insufficient Funds";
+  }else if(totalCash === changeDue){
+    return "Closed";
   }
   
-  for(j=8; j>0; j--){
-    dc = [];
-    while(changeDue > denom[j] && (cid[j][1] * 100) >= denom[j]){
+  // start giving back change in single denomination
+  for(var j=8; j>=0; j--){
+    // initial value of current denomination
+   dc = [cid[j][0], 0];
+    // do we still owe change of this denomination and do we have it to give?
+    while(changeDue >= denom[j] && cid[j][1] !== 0){
       changeDue -= denom[j];
-      cid[j][1] -= denom[j];
-     // console.log("change due=" + changeDue + " denom remain=" + cid[j][1]);
-      dc[0] = cid[j][0];
-      dc[1] += denom[j];
-      console.log(dc[1]);
+      cid[j][1] -= (denom[j] / 100);
+      dc[1] = dc[1] + denom[j];
     }
-   
+    
+    // convert money value back to decimal.  if we gave change push onto change array
     dc[1] = (dc[1] / 100);
     if(dc[1] > 0){
-      
-      
       change.push(dc);
     } 
-    
   }
-  //console.log(change);
+  
+  // if change is due we don't have the correct nominations to make exact change.
+  if(changeDue > 0){
+    return "Insufficient Funds";
+  }
+  
   // Here is your change, ma'am.
   return change;
 }
