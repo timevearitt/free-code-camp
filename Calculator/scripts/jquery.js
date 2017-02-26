@@ -18,7 +18,6 @@ $(document).ready(function() {
 		input += $(this).val();
 		$("#input").html(input);
 		operation.push($(this).val());
-		console.log(operation);
 	});
 
 	$("#btnSubtract").click(function() {
@@ -26,7 +25,6 @@ $(document).ready(function() {
 		input += $(this).val();
 		$("#input").html(input);
 		operation.push($(this).val());
-		console.log(operation);
 	});
 
 	$("#btnMultiply").click(function() {
@@ -34,7 +32,6 @@ $(document).ready(function() {
 		input += $(this).val();
 		$("#input").html(input);
 		operation.push($(this).val());
-		console.log(operation);
 	});
 
 	$("#btnDivide").click(function() {
@@ -42,7 +39,6 @@ $(document).ready(function() {
 		input += $(this).val();
 		$("#input").html(input);
 		operation.push($(this).val());
-		console.log(operation);
 	});	
 
 	$("#btnTotal").click(function() {
@@ -74,10 +70,15 @@ $(document).ready(function() {
 				return a-b;	
 			}			
 		});
+
 		// Handle Errors
 		if(isNaN(result)){
 			$("#displayTotal").html("Error!");
 			input = "";
+		}else if(result > 9999999){
+			$("#displayTotal").html("Error!");
+			input = "";
+			
 		}else{
 			$("#displayTotal").html(result);
 			input = result;	
@@ -103,7 +104,6 @@ $(document).ready(function() {
 		// indexes of last arithmetic operator for clearing entry
 		var trimIndex;
 		while(re.test(input) == true){
-			console.log("last index = " + re.lastIndex);
 			trimIndex = re.lastIndex;
 		}
 
