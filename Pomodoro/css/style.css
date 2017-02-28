@@ -1,0 +1,49 @@
+@media (min-width: 1200px) {
+  .container {
+   max-width: 960px;
+   min-height: 100%;
+  }
+}
+
+body{
+  font-family: 'Cinzel', serif;
+  font-size: 18px;
+  color: #262526;
+  background-color: #afb2b7;
+  padding-top: 60px;
+  height: 100%;
+}
+
+footer{
+  padding: 10px;
+}
+
+html{
+  height: 100%
+}
+
+.footer {
+  position: relative;
+  margin-top: -90px; /* negative value of footer height */
+  height: 90px;
+  clear:both;
+  padding-top:20px;
+}
+
+#wrap {
+  min-height: 100%;
+}
+
+#title{
+  font-family: 'Pacifico', cursive;
+  margin-bottom: 55px;
+}
+
+.container{
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+button:focus {
+  outline: 0;
+} 
