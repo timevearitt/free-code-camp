@@ -38,6 +38,16 @@ html{
   font-family: 'Pacifico', cursive;
   margin-bottom: 55px;
 }
+ 
+#workTimer{
+  display: inline-block;
+  margin: 0 10px 0 10px;
+}
+
+#breakTimer{
+  display: inline-block;
+  margin: 0 10px 0 10px;
+}
 
 .container{
   padding-top: 15px;

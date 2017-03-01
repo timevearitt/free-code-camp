@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-	<html>
+<html>
 	<head>
 		<meta charset="UTF-8">
 		<title>Free Code Camp - Pomodoro</title>
 
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="scripts/scripts.js"></script>
+		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 		<link rel="stylesheet" type="text/css" href="css/style.css">
@@ -25,17 +26,13 @@
 					<h2>Pomodoro Timer</h2>
 				</div>
 				<div class="row text-center">
-					<div id="workTimer">
-
-					</div>
+					<div class="ext-center"><i class="fa fa-plus" aria-hidden="true"></i><div id="workTimer"></div><i class="fa fa-minus" aria-hidden="true"></i></div>
 				</div>
 				<div class="row text-center">
-					<div id="breakTimer">
-
-					</div>
+					<div class="ext-center"><i class="fa fa-plus" aria-hidden="true"></i><div id="breakTimer"></div><i class="fa fa-minus" aria-hidden="true"></i></div>
 				</div>
 				<div class="row text-center">
-					<button type="button" id="start">Start</button>
+					<button type="button" id="start">Start</button> <button type="button" id="stop">Stop</button>
 				</div>
 			</div>
 		</div>
@@ -44,6 +41,5 @@
 	<footer class="text-center footer">
 	  Coded & Designed by Tim Evearitt &copy;<script type="text/javascript">document.write(new Date().getFullYear());</script></br>
 	</footer>
-
 </html>
 
