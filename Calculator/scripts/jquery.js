@@ -3,6 +3,68 @@ $(document).ready(function() {
 	var operation = [];
 	var isTotal = false;
 
+	$(document).keydown(function(event){
+		var keycode = (event.keyCode ? event.keyCode : event.which);
+		switch(keycode){
+			case 8:
+				$("#CE").trigger("click");
+				break;
+			case 13:
+			case 187:
+				$("#btnTotal").trigger("click");
+				break;
+			case 46:
+				$("#AC").trigger("click");
+				break;
+			case 48:
+				$("#0").trigger("click");
+				break;
+			case 49:
+				$("#1").trigger("click");
+				break;
+			case 50:
+				$("#2").trigger("click");
+				break;
+			case 51:
+				$("#3").trigger("click");
+				break;
+			case 52:
+				$("#4").trigger("click");
+				break;
+			case 53:
+				$("#5").trigger("click");
+				break;
+			case 54:
+				$("#6").trigger("click");
+				break;
+			case 55:
+				$("#7").trigger("click");
+				break;
+			case 56:
+				$("#8").trigger("click");
+				break;
+			case 57:
+				$("#9").trigger("click");
+				break;
+			case 106:
+				$("#btnMultiply").trigger("click");
+				console.log("*");
+				break;
+			case 107:
+				$("#btnAdd").trigger("click");
+				break;
+			case 109:
+				$("#btnSubtract").trigger("click");
+				break;
+			case 110:
+				$("#decimal").trigger("click");
+				break;
+			case 111:
+				$("#btnDivide").trigger("click");
+				break;
+		}
+	});
+
 	// Append numeric input
 	$(".btnNum").click(function() {
 		if(isTotal){
