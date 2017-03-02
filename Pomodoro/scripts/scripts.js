@@ -10,18 +10,53 @@ $(document).ready(function() {
 	$("#workTimer").html(Math.floor(workTime/60) + ":" + returnSeconds(workTime));
 	$("#breakTimer").html(Math.floor(breakTime/60) + ":" + returnSeconds(breakTime));
 
+	$("#addWorkTime").click(function() {
+		workTime += 1;
+		startWorkTime = workTime;
+		$("#workTimer").html(Math.floor(workTime/60) + ":" + returnSeconds(workTime));
+	});
+
+	$("#subWorkTime").click(function() {
+		workTime -= 1;
+		startWorkTime = workTime;
+		$("#workTimer").html(Math.floor(workTime/60) + ":" + returnSeconds(workTime));
+	});
+
+	$("#addBreak").click(function() {
+		breakTime += 1;
+		startBreakTime = breakTime;
+		$("#breakTimer").html(Math.floor(breakTime/60) + ":" + returnSeconds(breakTime));
+	});
+
+	$("#subBreak").click(function() {
+		breakTime -= 1;
+		startBreakTime = breakTime;
+		$("#breakTimer").html(Math.floor(breakTime/60) + ":" + returnSeconds(breakTime));
+	});
+
+
 	//Triggers work timer when start is clicked
 	$("#start").click(function() {
 		if(!isBreak){
 			workInterval = setInterval(function(){ setWorkTime() }, 1000);
 		}else{
 			breakInterval = setInterval(function(){ setBreakTime() }, 1000);
-		}
-		
+		}	
 	});
 	// Pauses time when stop is clicked
 	$("#stop").click(function() {
-		isTiming = false;
+		clearInterval(workInterval);
+		clearInterval(breakInterval);
+	});
+
+	$("#reset").click(function() {
+		isBreak = false;
+		startWorkTime = 1500;
+		workTime = startWorkTime;
+		startBreakTime = 300;
+		breakTime = startBreakTime;
+		$("#workTimer").html(Math.floor(workTime/60) + ":" + returnSeconds(workTime));
+		$("#breakTimer").html(Math.floor(breakTime/60) + ":" + returnSeconds(breakTime));
 		clearInterval(workInterval);
 		clearInterval(breakInterval);
 	});
@@ -32,7 +67,7 @@ $(document).ready(function() {
 		$("#workTimer").html(Math.floor(workTime/60) + ":" + returnSeconds(workTime));
 		if(workTime === 0){
 			clearInterval(workInterval);
-			breakTime = 5;
+			breakTime = startBreakTime;
 			breakInterval = setInterval(function(){ setBreakTime() }, 1000);
 			isBreak = true;
 		}
@@ -44,7 +79,7 @@ $(document).ready(function() {
 		$("#breakTimer").html(Math.floor(breakTime/60) + ":" + returnSeconds(breakTime));
 		if(breakTime === 0){
 			clearInterval(breakInterval);
-			workTime = 5;
+			workTime = startWorkTime;
 			workInterval = setInterval(function(){ setWorkTime() }, 1000);
 			isBreak = false;
 		}

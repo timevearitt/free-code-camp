@@ -5,8 +5,11 @@
   }
 }
 
+@import 'https://fonts.googleapis.com/css?family=Pacifico';
+@import 'https://fonts.googleapis.com/css?family=Orbitron';
+
 body{
-  font-family: 'Cinzel', serif;
+  font-family: 'Pacifico', serif;
   font-size: 18px;
   color: #262526;
   background-color: #afb2b7;
@@ -42,16 +45,31 @@ html{
 #workTimer{
   display: inline-block;
   margin: 0 10px 0 10px;
+  font-size: 72px;
+  font-family: 'Orbitron', serif;
 }
 
 #breakTimer{
   display: inline-block;
   margin: 0 10px 0 10px;
+  font-size: 72px;
+  font-family: 'Orbitron', serif;
 }
 
 .container{
   padding-top: 15px;
   padding-bottom: 15px;
+}
+
+.fa{
+  padding-bottom: 25px;
+  color: black;
+}
+
+button {
+  font-family: 'Orbitron', serif;
+  text-decoration: none;
+  
 }
 
 button:focus {
