@@ -1,39 +1,44 @@
 $(document).ready(function() {
-	var startWorkTime = 5;
+	var startWorkTime = 1500;
 	var workTime = startWorkTime;
-	var startBreakTime = 5;
+	var startBreakTime = 300;
 	var breakTime = startBreakTime;
 	var isBreak = false;
 	var workInterval;
+	// stores sounds
+	var airhorn = $("#airhorn")[0];
 	
 	// Display the default time in minutes and seconds.  returnSeconds accounts for adding 0 to time when seconds between 0-9.
-	$("#workTimer").html(Math.floor(workTime/60) + ":" + returnSeconds(workTime));
-	$("#breakTimer").html(Math.floor(breakTime/60) + ":" + returnSeconds(breakTime));
+	displayWorkTime();
+	displayBreakTime()
 
 	$("#addWorkTime").click(function() {
-		workTime += 1;
+		workTime += 60;
 		startWorkTime = workTime;
-		$("#workTimer").html(Math.floor(workTime/60) + ":" + returnSeconds(workTime));
+		displayWorkTime();
 	});
 
 	$("#subWorkTime").click(function() {
-		workTime -= 1;
-		startWorkTime = workTime;
-		$("#workTimer").html(Math.floor(workTime/60) + ":" + returnSeconds(workTime));
+		if(workTime > 60){
+			workTime -= 60;
+			startWorkTime = workTime;
+			displayWorkTime();
+		}
 	});
 
 	$("#addBreak").click(function() {
-		breakTime += 1;
+		breakTime += 60;
 		startBreakTime = breakTime;
-		$("#breakTimer").html(Math.floor(breakTime/60) + ":" + returnSeconds(breakTime));
+		displayBreakTime()
 	});
 
 	$("#subBreak").click(function() {
-		breakTime -= 1;
-		startBreakTime = breakTime;
-		$("#breakTimer").html(Math.floor(breakTime/60) + ":" + returnSeconds(breakTime));
+		if(breakTime > 60){
+			breakTime -= 60;
+			startBreakTime = breakTime;
+			displayBreakTime()
+		}
 	});
-
 
 	//Triggers work timer when start is clicked
 	$("#start").click(function() {
@@ -55,8 +60,8 @@ $(document).ready(function() {
 		workTime = startWorkTime;
 		startBreakTime = 300;
 		breakTime = startBreakTime;
-		$("#workTimer").html(Math.floor(workTime/60) + ":" + returnSeconds(workTime));
-		$("#breakTimer").html(Math.floor(breakTime/60) + ":" + returnSeconds(breakTime));
+		displayWorkTime();
+		displayBreakTime()
 		clearInterval(workInterval);
 		clearInterval(breakInterval);
 	});
@@ -64,8 +69,9 @@ $(document).ready(function() {
 	//Work time logic
 	function setWorkTime(){
 		workTime--;
-		$("#workTimer").html(Math.floor(workTime/60) + ":" + returnSeconds(workTime));
-		if(workTime === 0){
+		displayWorkTime();
+		if(workTime === 0 ){
+			airhorn.play();
 			clearInterval(workInterval);
 			breakTime = startBreakTime;
 			breakInterval = setInterval(function(){ setBreakTime() }, 1000);
@@ -76,13 +82,22 @@ $(document).ready(function() {
 	//Break time logic
 	function setBreakTime(){
 		breakTime--;
-		$("#breakTimer").html(Math.floor(breakTime/60) + ":" + returnSeconds(breakTime));
+		displayBreakTime()
 		if(breakTime === 0){
+			airhorn.play();
 			clearInterval(breakInterval);
 			workTime = startWorkTime;
 			workInterval = setInterval(function(){ setWorkTime() }, 1000);
 			isBreak = false;
 		}
+	}
+
+	function displayWorkTime(){
+		$("#workTimer").html(Math.floor(workTime/60) + ":" + returnSeconds(workTime));
+	}
+
+	function displayBreakTime(){
+		$("#breakTimer").html(Math.floor(breakTime/60) + ":" + returnSeconds(breakTime));
 	}
 	
 	//Format time to string

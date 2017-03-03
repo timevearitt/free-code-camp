@@ -11,8 +11,8 @@
 body{
   font-family: 'Pacifico', serif;
   font-size: 18px;
-  color: #262526;
-  background-color: #afb2b7;
+  color: #2E6005;
+  background-color: #6CA63C;
   padding-top: 60px;
   height: 100%;
 }
@@ -23,6 +23,15 @@ footer{
 
 html{
   height: 100%
+}
+
+h1{
+  font-size: 60px;
+}
+
+h2{
+  font-size: 45px;
+  margin-bottom: 30px;
 }
 
 .footer {
@@ -45,33 +54,47 @@ html{
 #workTimer{
   display: inline-block;
   margin: 0 10px 0 10px;
-  font-size: 72px;
+  font-size: 96px;
   font-family: 'Orbitron', serif;
 }
 
 #breakTimer{
   display: inline-block;
   margin: 0 10px 0 10px;
-  font-size: 72px;
+  font-size: 96px;
   font-family: 'Orbitron', serif;
 }
 
 .container{
   padding-top: 15px;
   padding-bottom: 15px;
+  background-color: #C0E79F;
+  border-radius: 15px;
+}
+
+.time{
+  width: 5em;
+  font-weight: bold;
 }
 
 .fa{
-  padding-bottom: 25px;
-  color: black;
+  padding-bottom: 50px;
+  color: #4E871E;
+  border: none;
 }
 
 button {
   font-family: 'Orbitron', serif;
+  font-size: 28px;
   text-decoration: none;
-  
+  border-radius: 15px;
+  background-color: #95CB69;
+  border: none;
+  padding: 15px;
+  margin: 5px;
+  width: 5em;
 }
 
 button:focus {
   outline: 0;
-} 
+}
