@@ -1,9 +1,8 @@
-@media (min-width: 1200px) {
-  .container {
-   max-width: 960px;
-   min-height: 100%;
+.container {
+     max-width: 960px;
+     background-color: #C0E79F;
+     border-radius: 15px;
   }
-}
 
 @import 'https://fonts.googleapis.com/css?family=Pacifico';
 @import 'https://fonts.googleapis.com/css?family=Orbitron';
@@ -13,37 +12,29 @@ body{
   font-size: 18px;
   color: #2E6005;
   background-color: #6CA63C;
-  padding-top: 60px;
-  height: 100%;
+  padding-top: 15px;
 }
 
-footer{
-  padding: 10px;
+@media (min-width: 768px){
+  h1{
+    font-size: 48px;
+  }
 }
 
-html{
-  height: 100%
-}
-
-h1{
-  font-size: 60px;
-}
-
-h2{
-  font-size: 45px;
-  margin-bottom: 30px;
-}
-
-.footer {
-  position: relative;
-  margin-top: -90px; /* negative value of footer height */
-  height: 90px;
-  clear:both;
-  padding-top:20px;
+@media (min-width: 768px){
+  h2{
+    font-size: 32px;
+    margin-bottom: 30px;
+  }
 }
 
 #wrap {
-  min-height: 100%;
+  margin: -90 auto 0;
+}
+
+.footer {
+  padding-top:20px;
+  postition: absolute;
 }
 
 #title{
@@ -54,38 +45,44 @@ h2{
 #workTimer{
   display: inline-block;
   margin: 0 10px 0 10px;
-  font-size: 96px;
+  font-size: 42px;
   font-family: 'Orbitron', serif;
 }
 
 #breakTimer{
   display: inline-block;
   margin: 0 10px 0 10px;
-  font-size: 96px;
+  font-size: 42px;
   font-family: 'Orbitron', serif;
 }
 
-.container{
-  padding-top: 15px;
-  padding-bottom: 15px;
-  background-color: #C0E79F;
-  border-radius: 15px;
+@media (min-width: 768px){
+  #workTimer, #breakTimer {
+    font-size: 98px;
+  } 
 }
 
-.time{
-  width: 5em;
+.time {
+  width: 4em;
   font-weight: bold;
 }
 
 .fa{
-  padding-bottom: 50px;
+  padding-bottom: 18px;
   color: #4E871E;
   border: none;
 }
 
+@media (min-width: 768px){
+  .fa{
+    padding-bottom: 50px;
+  }
+}
+
+
 button {
   font-family: 'Orbitron', serif;
-  font-size: 28px;
+  font-size: 18px;
   text-decoration: none;
   border-radius: 15px;
   background-color: #95CB69;
