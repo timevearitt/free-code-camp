@@ -6,6 +6,7 @@
 
 @import 'https://fonts.googleapis.com/css?family=Pacifico';
 @import 'https://fonts.googleapis.com/css?family=Orbitron';
+@import 'https://fonts.googleapis.com/css?family=Cutive+Mono';
 
 body{
   font-family: 'Pacifico', serif;
@@ -45,14 +46,14 @@ body{
   display: inline-block;
   margin: 0 10px 0 10px;
   font-size: 42px;
-  font-family: 'Orbitron', serif;
+  font-family: 'Cutive Mono', monospace;
 }
 
 #breakTimer{
   display: inline-block;
   margin: 0 10px 0 10px;
   font-size: 42px;
-  font-family: 'Orbitron', serif;
+  font-family: 'Cutive Mono', monospace;
 }
 
 @media (min-width: 768px){

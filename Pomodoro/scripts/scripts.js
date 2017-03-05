@@ -7,6 +7,8 @@ $(document).ready(function() {
 	var workInterval;
 	// stores sounds
 	var airhorn = $("#airhorn")[0];
+
+	$("#stop").hide();
 	
 	// Display the default time in minutes and seconds.  returnSeconds accounts for adding 0 to time when seconds between 0-9.
 	displayWorkTime();
@@ -42,6 +44,8 @@ $(document).ready(function() {
 
 	//Triggers work timer when start is clicked
 	$("#start").click(function() {
+		$("#stop").show();
+		$("#start").hide();
 		if(!isBreak){
 			workInterval = setInterval(function(){ setWorkTime() }, 1000);
 		}else{
@@ -50,11 +54,15 @@ $(document).ready(function() {
 	});
 	// Pauses time when stop is clicked
 	$("#stop").click(function() {
+		$("#start").show();
+		$("#stop").hide();
 		clearInterval(workInterval);
 		clearInterval(breakInterval);
 	});
 
 	$("#reset").click(function() {
+		$("#start").show();
+		$("#stop").hide();
 		isBreak = false;
 		startWorkTime = 1500;
 		workTime = startWorkTime;
@@ -93,11 +101,11 @@ $(document).ready(function() {
 	}
 
 	function displayWorkTime(){
-		$("#workTimer").html(Math.floor(workTime/60) + ":" + returnSeconds(workTime));
+		$("#workTimer").html(returnMinutes(workTime) + ":" + returnSeconds(workTime));
 	}
 
 	function displayBreakTime(){
-		$("#breakTimer").html(Math.floor(breakTime/60) + ":" + returnSeconds(breakTime));
+		$("#breakTimer").html(returnMinutes(breakTime) + ":" + returnSeconds(breakTime));
 	}
 	
 	//Format time to string
@@ -106,6 +114,14 @@ $(document).ready(function() {
 			return "0" + num%60
 		}else{
 			return num % 60;
+		}
+	}
+
+	function returnMinutes(num){
+		if(num / 60 < 10){
+			return "0" + Math.floor(num / 60);
+		}else{
+			return Math.floor(num / 60);
 		}
 	}
 			
