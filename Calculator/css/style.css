@@ -1,15 +1,15 @@
-.container {
-  max-width: 960px;
-  padding-top: 15px;
-  padding-bottom: 15px;
-}
-
 body{
   font-family: 'Cinzel', serif;
   font-size: 18px;
   color: #262526;
   background-color: #afb2b7;
   padding-top: 60px;
+}
+
+.container {
+  max-width: 960px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 .footer {

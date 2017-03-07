@@ -4,7 +4,7 @@ $(document).ready(function() {
     if(event.keyCode == 13){
         $("#search").click();
     }
-});
+  });
   
   $('#search').click(function() {
   var search = $('.searchVal').val();
