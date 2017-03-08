@@ -89,6 +89,10 @@ li{
   background: #90EE90;
 }
 
+button:focus {
+  outline: 0;
+}
+
 /* unvisited link */
 a:link {
     color: #262526;
