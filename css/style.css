@@ -43,6 +43,7 @@ li{
   border: solid 3px;
   border-radius: 50%;
   border-color: #d7d8da;
+  width: 200px;
 }
 
 .vertical-align {
