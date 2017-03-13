@@ -32,6 +32,26 @@ li{
   color: #262526;
 }
 
+@media (min-width: 768px){
+  h1{
+    font-size: 56px;
+  }
+
+  p{
+    font-size: 18px;
+  }
+
+  figcaption{
+    font-size: 18px;
+  }
+
+  li{
+    font-size: 22px;
+  }
+}
+
+
+
 .social{
   color: #7f8084;
   margin: 10px 20px 0px 20px;
