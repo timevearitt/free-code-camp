@@ -11,6 +11,14 @@ $(document).ready(function() {
 	var player = {token:"X", wins: 0};
 	var ai = {token:"O", wins: 0};
 
+	match();
+
+	function match(){
+
+		if(!isPlayerTurn){
+			aiTurn();
+			updateBoard();
+		}
 
 		$(".square").click(function(event){
 			sid = event.target.id;
@@ -22,20 +30,21 @@ $(document).ready(function() {
 				turnCount++;
 				updateBoard();
 				isGameOver = gameOver();
+
+				if(!isGameOver){
+					aiTurn();
+					updateBoard();
+					isGameOver = gameOver();
+				}	
 			}
-			if(!isGameOver){
-				aiTurn();
-				updateBoard();
-				isGameOver = gameOver();
-			}	
-			console.log(isGameOver);
 
 			if(isGameOver){
-				initGame();
-				updateBoard();
+					initGame();
+					updateBoard();
+					match();
 			}
 		});
-	
+	}
 
 	
 
