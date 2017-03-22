@@ -10,11 +10,22 @@ $(document).ready(function() {
 	var gameNum = 0;
 	var player = {token:"X", wins: 0};
 	var ai = {token:"O", wins: 0};
+	var myMatch;
 
-	var myMatch = setInterval(match, 100);
+	$("#info").hide();
+	
+	$("#X").click(function(event){
+		myMatch = setInterval(match, 100);
+		$("#selectToken").hide();
+	});
+
+	$("#O").click(function(event){
+		isPlayerTurn = false;
+		myMatch = setInterval(match, 100);
+		$("#selectToken").hide();
+	});
 
 	function match(){
-
 		if(isPlayerTurn && !isGameOver){
 			// make player move
 			$(".square").click(function(event){
@@ -38,12 +49,14 @@ $(document).ready(function() {
 			isGameOver = gameOver();
 		}
 
-		updateBoard();
-
 		if(isGameOver){
-			alert("Game Over!");
-			initGame();
+			$("#info").show();
+			$("#rematch").click(function(event){
+				initGame();
+			});
 		}
+
+		updateBoard();
 	}
 
 	function initGame(){
@@ -55,12 +68,14 @@ $(document).ready(function() {
 
 		turnCount = 0;
 		gameNum++;
-		if(gameNum % 2 === 0){
+		console.log(gameNum);
+		if(gameNum % 2 == 0){
 			isPlayerTurn = true;
 		}else{
 			isPlayerTurn = false;
 		}
 		isGameOver = false;
+		$("#info").hide();
 	}
 
 	function aiTurn(){
