@@ -20,6 +20,8 @@ $(document).ready(function() {
 	});
 
 	$("#O").click(function(event){
+		player.token = "O";
+		ai.token = "X";
 		isPlayerTurn = false;
 		myMatch = setInterval(match, 100);
 		$("#selectToken").hide();
@@ -51,13 +53,14 @@ $(document).ready(function() {
 
 		if(isGameOver){
 			$("#info").show();
-			$("#rematch").click(function(event){
-				initGame();
-			});
 		}
 
 		updateBoard();
 	}
+
+	$("#rematch").click(function(event){
+		initGame();
+	});
 
 	function initGame(){
 		board = [
@@ -69,10 +72,19 @@ $(document).ready(function() {
 		turnCount = 0;
 		gameNum++;
 		console.log(gameNum);
-		if(gameNum % 2 == 0){
-			isPlayerTurn = true;
+
+		if(player.token === "X"){
+			if(gameNum % 2 == 0){
+				isPlayerTurn = true;
+			}else{
+				isPlayerTurn = false;
+			}
 		}else{
-			isPlayerTurn = false;
+			if(gameNum % 2 == 0){
+				isPlayerTurn = false;
+			}else{
+				isPlayerTurn = true;
+			}
 		}
 		isGameOver = false;
 		$("#info").hide();
@@ -100,80 +112,100 @@ $(document).ready(function() {
 	}
 
 	function gameOver(){
-		if(checkRows()){
+
+		if(winConditions() === null){
+			return false;
+		}else{
 			return true;
 		}
+		
+	}
 
-		if(checkCols()){
-			return true;
+	function winConditions(){
+		winRow = checkRows(board);
+		winCol = checkCols(board)
+		winTD = checkTopDiagonal(board);
+		winBD = checkBotDiagonal(board);
+		winDraw = checkCat(turnCount);
+
+		if(winRow !== null){
+			return winRow;
 		}
 
-		if(checkTopDiagonal()){
-			return true;
+		if(winCol !== null){
+			return winCol;
 		}
 
-		if(checkBotDiagonal()){
-			return true;
+		if(winTD !== null){
+			return winTD;
 		}
 
-		if(checkCat()){
-			return true;
+		if(winBD !== null){
+			return winBD;
 		}
 
-		return false;
+		if(winDraw !== null){
+			return winDraw;
+		}
 
+		return null;
 	}
 
 	// Rows win condition
-	function checkRows(){
+	function checkRows(b){
 		for(i=0; i<3; i++){
-			if(board[i][0] === board[i][1] && board[i][0] === board[i][2] && board[i][0] != ""){
-				console.log(board[i][0] + " WINS!");
+			if(b[i][0] === b[i][1] && b[i][0] === b[i][2] && b[i][0] != ""){
+				console.log(b[i][0] + " WINS!");
 				//alert(board[i][0] + " WINS!");
-				incrementScore(board[i][0]);
-				return true;
+				incrementScore(b[i][0]);
+				return b[i][0];
 			}
 		}
+		return null
 	}
 
 	// Columns win condition
-	function checkCols(){
+	function checkCols(b){
 		for(j=0; j<3; j++){
-			if(board[0][j] === board[1][j] && board[0][j] === board[2][j] && board[0][j] != ""){
-				console.log(board[0][j] + " WINS!");
+			if(b[0][j] === b[1][j] && b[0][j] === b[2][j] && b[0][j] != ""){
+				console.log(b[0][j] + " WINS!");
 				//alert(board[0][j] + " WINS!");
-				incrementScore(board[0][j]);
-				return true;
+				incrementScore(b[0][j]);
+				return b[0][j];
 			}
 		}
+		return null;
 	}
 
 	//check top left to bottom right
-	function checkTopDiagonal(){
-		if(board[0][0] === board[1][1] && board[0][0] === board[2][2] && board[0][0] != ""){
-			console.log(board[0][0] + " WINS!");
+	function checkTopDiagonal(b){
+		if(b[0][0] === b[1][1] && b[0][0] === b[2][2] && b[0][0] != ""){
+			console.log(b[0][0] + " WINS!");
 			//alert(board[0][0] + " WINS!");
-			incrementScore(board[0][0]);
-			return true;
+			incrementScore(b[0][0]);
+			return b[0][0];
 		}
+		return null;
 	}
 
 	//check bot left to top right
-	function checkBotDiagonal(){
-		if(board[2][0] === board[1][1] && board[2][0] === board[0][2] && board[2][0] != ""){
-			console.log(board[2][0] + " WINS!");
+	function checkBotDiagonal(b){
+		if(b[2][0] === b[1][1] && b[2][0] === b[0][2] && b[2][0] != ""){
+			console.log(b[2][0] + " WINS!");
 			//alert(board[2][0] + " WINS!");
-			incrementScore(board[2][0]);
-			return true;
+			incrementScore(b[2][0]);
+			return b[2][0];
 		}
+		return null;
 	}
 
 	//check draw
-	function checkCat(){
-		if(turnCount === 9){
+	function checkCat(tc){
+		if(tc === 9){
 			console.log("Cat Wins!");
-			return true;
+			return "D";
 		}
+		return null;
 	}
 
 	function incrementScore(str){
