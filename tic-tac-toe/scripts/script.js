@@ -125,7 +125,7 @@ $(document).ready(function() {
 	//checks for win or draw.  Increments score and updates winner div.
 	function gameOver(){
 
-		wc = winConditions();
+		wc = winConditions(board, turnCount);
 
 		switch(wc){
 			case null:
@@ -149,12 +149,12 @@ $(document).ready(function() {
 	}
 
 	//Checks and returns winner value for X, O, or Draw.  Otherwise returns a null value
-	function winConditions(){
-		winRow = checkRows(board);
-		winCol = checkCols(board)
-		winTD = checkTopDiagonal(board);
-		winBD = checkBotDiagonal(board);
-		winDraw = checkCat(turnCount);
+	function winConditions(b, tc){
+		winRow = checkRows(b);
+		winCol = checkCols(b)
+		winTD = checkTopDiagonal(b);
+		winBD = checkBotDiagonal(b);
+		winDraw = checkCat(tc);
 
 		if(winRow !== null){
 			return winRow;
@@ -233,38 +233,51 @@ $(document).ready(function() {
 		$("#score").html("PLAYER " + player.wins + " - AI: " + ai.wins);
 	}
 
+	function score(simWin){
+		if(simWin === ai.token){
+			return 10;
+		}else if(simWin === player.token){
+			return -10;
+		}else{
+			return 0;
+		}
+	}
+
 	function miniMaxAI(simBoard){
 		sb = simBoard;
-		aiTurn = true;
-		score = 0;
-		bestScore = 0;
-		bestMove = 00;
+		terminal = winConditions(sb)
+		if(terminal !== null){
+			return score(terminal);
+		}else{
+			availablePositions = availableSquares(sb);
 
+			availableNextStates = availablePositions.map(function(pos){
+				//action = 
+			});
+		}
+	}
+
+	function availableSquares(simBoard){
+		var ap = [];
 		for(i=0; i<3; i++){
-			score = 0;
 			for(j=0; j<3; j++){
-				if(sb[i][j] === null){
-					if(aiTurn){
-						sb[i][j] = ai.token;
-					}else{
-						sb[i][j] = player.token;
-					}
-					aiTurn = !aiTurn;
-					simWC = winConditions(sb);
-					if(simWC === ai.token){
-						score += 10;
-						break;
-					}else if(simWC === player.token){
-						score -= 10;
-						break;
-					}else if(simWC = "D"){
-						score += 0;
-						break;
-					else{
-						// do nothing
-					}
+				if(simBoard[i][j] === ""){
+					ap.push(simBoard[i][j]);
 				}
 			}
+		}
+		return ap;
+	}
+
+	var AIAction = function(pos){
+		this.movePosition = pos;
+
+		this.minimaxVal = 0;
+
+		this.applyTo = function(state) {
+			var next = new State(state);
+
+			//next.
 		}
 	}
 
