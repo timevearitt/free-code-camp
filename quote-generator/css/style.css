@@ -11,35 +11,36 @@
 body{
   background-color: #526f35;
   font-family: 'Raleway', sans-serif;
+  color: #663300;
 }
 
 h1 {
-  font-size: 48px;
+  font-size: 26px;
   margin-top: 25px;
   margin-bottom: 50px;
 }
 
 #main{
   background-color: #fff;
-  margin-top: 100px;
+  margin-top: 50px;
   border-radius: 15px;
   padding: 25px;
 }
 
 #quote {
-  font-size: 48px;
+  font-size: 22px;
   margin-bottom: 15px;
   font-family: 'Mogra', cursive;
 }
 
 #author {
-  font-size: 32px;
+  font-size: 18px;
   margin-bottom: 15px;
 }
 
 button {
   margin-bottom: 15px;
-  font-size: 18px;
+  font-size: 13px;
   background: #663300;
   color: white;
   border-radius: 15px;
@@ -65,4 +66,23 @@ footer{
   color: #DDEBFF;
   background-color: #00347F;
   margin-top: 10px;
+}
+
+@media (min-width: 768px){
+  h1 {
+    font-size: 48px;
+  }
+
+  #quote {
+    font-size: 48px;
+  }
+
+  #author {
+    font-size: 32px;
+  }
+
+  button {
+    font-size: 18px;
+  }
+
 }

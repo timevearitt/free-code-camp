@@ -36,12 +36,11 @@ ul {
 }
 
 li{
-  background-color:	#f3f3f3;
+  background-color: #f3f3f3; 
   border-radius: 12px;
   margin-top: 15px;
-  padding: 10px 10px 10px 10px;
-  font-size: 18px;
   overflow: hidden;
+  font-size: 12px; 
 }
 
 #linkedin{
@@ -64,10 +63,22 @@ li{
 }
 
 .logo{
-  height: 75px;
+  height: 25px;
   border-radius: 50%;
-  margin: 0px 25px 0px 25px;
+  margin: 0px 25px 0px 5px;
   float: left;
+}
+
+@media (min-width: 768px){
+  .logo{
+    height: 75px;
+    margin: 0px 25px 0px 25px;
+  }
+
+  li{
+    padding: 10px 10px 10px 10px;
+    font-size: 18px;  
+  }
 }
 
 .warning{
