@@ -16,13 +16,13 @@
 
 	<body>
 		<div id="wrap">
-			<div class="container">
+			<div id="main" class="container">
 
 				<div id="score" class="row text-center">
 					PLAYER: 0 - AI: 0
 				</div>
 				<div class="row text-center" id="board">
-				    <table class="table">
+				    <table class="table .table-responsive">
 				      <tr id="row1">
 				        <td id="00" value="4" class="square top"></td>
 				        <td id="01" value="9" class="square v top"></td>
@@ -44,7 +44,7 @@
 					Select Your Token!
 				</div>
 				<div id="selectToken" class="row text-center">
-					<button type="button" id="X">X</button> OR <button type="button" id="O">O</button>
+					<button type="button" id="X" class="token">X</button> <button type="button" id="O" class="token">O</button>
 				</div>
 				
 				<div id="info" class="row text-center">
