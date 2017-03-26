@@ -100,7 +100,6 @@ button{
   padding: 0 15px 0 15px;
   color: black;
   background-color: #a8a8a8;
-  
 }
 
 @media (min-width: 768px){
@@ -119,14 +118,36 @@ button{
 
 #main {
   overflow:auto;
-  padding-bottom:150px; /* this needs to be bigger than footer height*/
+  padding-bottom:125px; /* this needs to be bigger than footer height*/
+}
+
+@media (min-width: 768px){
+  #main {
+    overflow:auto;
+    padding-bottom:220px; /* this needs to be bigger than footer height*/
+  }
+}
+
+.social{
+  color: #7f8084;
+  margin: 10px 20px 0px 20px;
 }
 
 .footer {
   position: relative;
-  margin-top: -150px; /* negative value of footer height */
-  height: 150px;
+  margin-top: -125px; /* negative value of footer height */
+  height: 125px;
   clear:both;
   padding-top:20px;
 } 
+
+@media (min-width: 768px){
+  .footer {
+    position: relative;
+    margin-top: -220px; /* negative value of footer height */
+    height: 220px;
+    clear:both;
+    padding-top:20px;
+  } 
+}
 
