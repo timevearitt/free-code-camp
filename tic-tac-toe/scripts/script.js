@@ -114,21 +114,23 @@ $(document).ready(function() {
 	}
 
 	function hardAiTurn(){
-		aiWinValue = aiWin();
+		isPlayerTurn = true;
+		aiWinValue = aiWin(board);
 		console.log(aiWinValue);
 		if(aiWinValue !== null){
-			board[substring.aiWinValue(0, 1)][substring.aiWinValue(1, 2)] = ai.token;
-			isPlayerTurn = true;
-			turnCount++;
+			//board[aiWinValue.substring(0, 1)][aiWinValue.substring(1, 2)] = ai.token;
+			//isPlayerTurn = true;
+			//turnCount++;
 		}else{
-			aiTurn();
+			//aiTurn();
 		}
 
 	}
 
-	function aiWin(){
+	function aiWin(b){
+		var testBoard = Object.create(b);
 		for(i=0; i<3; i++){
-			testBoard = board;
+			testBoard = b;
 			for(j=0; j<3; j++){
 				if(testBoard[i][j] === ""){
 					testBoard[i][j] = ai.token;
