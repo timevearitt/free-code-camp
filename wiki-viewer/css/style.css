@@ -25,6 +25,7 @@ input[type=text] {
     margin-top: 30px;
     margin-bottom: 5px;
     color: #000;
+    padding: 5px;
 }
 
 input::-webkit-input-placeholder {
@@ -80,7 +81,17 @@ a:active {
 }
 
 h1{
+  font-size: 48px;
   font-family: "Times New Roman", Times, serif;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+}
+
+.social{
+  color: #7f8084;
+  margin: 10px 20px 0px 20px;
 }
 
 #linkedin{
@@ -92,7 +103,8 @@ h1{
 
 .footer {
   position: relative;
-  margin-top: -90px; /* negative value of footer height */
+  margin-top: -150px; /* negative value of footer height */
+  margin-bottom: 100px;
   height: 90px;
   clear:both;
   padding-top:20px;

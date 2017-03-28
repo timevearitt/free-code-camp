@@ -230,7 +230,9 @@ $(document).ready(function() {
 		}else{
 			ai.wins++;
 		}
-		$("#score").html("PLAYER " + player.wins + " - AI: " + ai.wins);
+		$("#playerScore").html("PLAYER</br>" + player.wins);
+		$("#aiScore").html("CPU</br>" + ai.wins);
+		//$("#score").html("PLAYER " + player.wins + " - AI: " + ai.wins);
 	}
 
 	function score(simWin){

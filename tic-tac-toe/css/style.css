@@ -8,6 +8,16 @@ body{
   height: 100%;
 }
 
+h1{
+  font-size: 48px;
+}
+
+@media (min-width: 768px){
+  h1{
+  font-size: 72px;
+} 
+}
+
 .container {
      max-width: 960px;
      margin-top: 50px;
@@ -66,13 +76,18 @@ th{
 }
 
 #score{
-  font-size: 28px;
+  font-size: 18px;
+}
+
+.scoreBox{
+  border: 1px solid #fff;
+  border-radius: 15px;
 }
 
 @media (min-width: 768px){
   #score{
     font-size: 48px;
-  }  
+  }
 }
 
 #winner{
