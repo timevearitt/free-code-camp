@@ -113,6 +113,36 @@ $(document).ready(function() {
 		}
 	}
 
+	function hardAiTurn(){
+		aiWinValue = aiWin();
+		console.log(aiWinValue);
+		if(aiWinValue !== null){
+			board[substring.aiWinValue(0, 1)][substring.aiWinValue(1, 2)] = ai.token;
+			isPlayerTurn = true;
+			turnCount++;
+		}else{
+			aiTurn();
+		}
+
+	}
+
+	function aiWin(){
+		for(i=0; i<3; i++){
+			testBoard = board;
+			for(j=0; j<3; j++){
+				if(testBoard[i][j] === ""){
+					testBoard[i][j] = ai.token;
+					testWin = winConditions(testBoard, turnCount);
+					if(testWin === ai.token){
+						return i + "" + j;
+					}
+				}
+			}
+		}
+
+		return null;
+	}
+
 	//Redraws the game board
 	function updateBoard(){
 		for(i=0; i<3; i++){
