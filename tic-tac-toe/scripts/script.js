@@ -58,7 +58,7 @@ $(document).ready(function() {
 		
 		// AI Turn
 		if(!isPlayerTurn && !isGameOver){
-			aiTurn();
+			hardAiTurn();
 			isGameOver = gameOver();
 		}
 
@@ -79,7 +79,6 @@ $(document).ready(function() {
 
 		turnCount = 0;
 		gameNum++;
-		console.log(gameNum);
 
 		if(player.token === "X"){
 			if(gameNum % 2 == 0){
@@ -114,42 +113,73 @@ $(document).ready(function() {
 	}
 
 	function hardAiTurn(){
-		isPlayerTurn = true;
-		aiWinValue = aiWin(board);
-		console.log(aiWinValue);
+		aiWinValue = aiWin();
+		aiBlockValue = aiBlock();
+		console.log(aiBlockValue);
 		if(aiWinValue !== null){
-			//board[aiWinValue.substring(0, 1)][aiWinValue.substring(1, 2)] = ai.token;
-			//isPlayerTurn = true;
-			//turnCount++;
-		}else{
-			//aiTurn();
+			board[aiWinValue.substring(0, 1)][aiWinValue.substring(1, 2)] = ai.token;
+			isPlayerTurn = true;
+			turnCount++;
+		}else if(aiBlockValue !== null){
+			board[aiBlockValue.substring(0, 1)][aiBlockValue.substring(1, 2)] = ai.token;
+			isPlayerTurn = true;
+			turnCount++;
 		}
-
+		else{
+			aiTurn();
+		}
 	}
 
-	function aiWin(b){
-		var testBoard = Object.create(b);
-		for(i=0; i<3; i++){
-			testBoard = b;
-			for(j=0; j<3; j++){
-				if(testBoard[i][j] === ""){
-					testBoard[i][j] = ai.token;
+	function aiWin(){
+		for(aiWini=0; aiWini<3; aiWini++){
+			for(aiWinj=0; aiWinj<3; aiWinj++){
+				cloneBoard();
+				if(testBoard[aiWini][aiWinj] == ""){
+					testBoard[aiWini][aiWinj] = ai.token;
 					testWin = winConditions(testBoard, turnCount);
 					if(testWin === ai.token){
-						return i + "" + j;
+						return aiWini + "" + aiWinj;
 					}
 				}
 			}
 		}
-
 		return null;
+	}
+
+	function aiBlock(){
+		for(abi=0; abi<3; abi++){
+			for(abj=0; abj<3; abj++){
+				cloneBoard();
+				if(testBoard[abi][abj] == ""){
+					testBoard[abi][abj] = player.token;
+					testWin = winConditions(testBoard, turnCount);
+					if(testWin === player.token){
+						return abi + "" + abj;
+					}
+				}
+			}
+		}
+		return null;
+	}
+
+	function cloneBoard(){
+		testBoard = [
+				["","",""],
+				["","",""],
+				["","",""]
+			];
+		for(cbi=0; cbi<3; cbi++){
+			for(cbj=0; cbj<3; cbj++){
+				testBoard[cbi][cbj] = board[cbi][cbj];
+			}
+		}
 	}
 
 	//Redraws the game board
 	function updateBoard(){
-		for(i=0; i<3; i++){
-			for(j=0; j<3; j++){
-				$("#" + i + j).html(board[i][j]);
+		for(ubi=0; ubi<3; ubi++){
+			for(ubj=0; ubj<3; ubj++){
+				$("#" + ubi + ubj).html(board[ubi][ubj]);
 			}
 		}
 	}
@@ -213,9 +243,9 @@ $(document).ready(function() {
 
 	// Rows win condition
 	function checkRows(b){
-		for(i=0; i<3; i++){
-			if(b[i][0] === b[i][1] && b[i][0] === b[i][2] && b[i][0] != ""){
-				return b[i][0];
+		for(cri=0; cri<3; cri++){
+			if(b[cri][0] === b[cri][1] && b[cri][0] === b[cri][2] && b[cri][0] != ""){
+				return b[cri][0];
 			}
 		}
 		return null
@@ -223,9 +253,9 @@ $(document).ready(function() {
 
 	// Columns win condition
 	function checkCols(b){
-		for(j=0; j<3; j++){
-			if(b[0][j] === b[1][j] && b[0][j] === b[2][j] && b[0][j] != ""){
-				return b[0][j];
+		for(ccj=0; ccj<3; ccj++){
+			if(b[0][ccj] === b[1][ccj] && b[0][ccj] === b[2][ccj] && b[0][ccj] != ""){
+				return b[0][ccj];
 			}
 		}
 		return null;
@@ -266,7 +296,7 @@ $(document).ready(function() {
 		$("#aiScore").html("CPU</br>" + ai.wins);
 		//$("#score").html("PLAYER " + player.wins + " - AI: " + ai.wins);
 	}
-
+	/*
 	function score(simWin){
 		if(simWin === ai.token){
 			return 10;
@@ -276,7 +306,7 @@ $(document).ready(function() {
 			return 0;
 		}
 	}
-
+	
 	function miniMaxAI(simBoard){
 		sb = simBoard;
 		terminal = winConditions(sb)
@@ -314,5 +344,5 @@ $(document).ready(function() {
 			//next.
 		}
 	}
-
+	*/
 });
