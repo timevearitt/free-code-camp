@@ -115,6 +115,9 @@ $(document).ready(function() {
 	function hardAiTurn(){
 		aiWinValue = aiWin();
 		aiBlockValue = aiBlock();
+		aiForkValue = aiFork(ai.token);
+		aiBlockForkValue = aiFork(player.token);
+		console.log(aiForkValue);
 		console.log(aiBlockValue);
 		if(aiWinValue !== null){
 			board[aiWinValue.substring(0, 1)][aiWinValue.substring(1, 2)] = ai.token;
@@ -124,8 +127,19 @@ $(document).ready(function() {
 			board[aiBlockValue.substring(0, 1)][aiBlockValue.substring(1, 2)] = ai.token;
 			isPlayerTurn = true;
 			turnCount++;
-		}
-		else{
+		}else if(aiForkValue !== null){
+			board[aiForkValue.substring(0, 1)][aiForkValue.substring(1, 2)] = ai.token;
+			isPlayerTurn = true;
+			turnCount++;
+		}else if(aiBlockForkValue !== null){
+			board[aiBlockForkValue.substring(0, 1)][aiBlockForkValue.substring(1, 2)] = ai.token;
+			isPlayerTurn = true;
+			turnCount++;
+		}else if(board[1][1] === ""){
+			board[1][1] = ai.token;
+			isPlayerTurn = true;
+			turnCount++;
+		}else{
 			aiTurn();
 		}
 	}
@@ -160,6 +174,67 @@ $(document).ready(function() {
 			}
 		}
 		return null;
+	}
+
+	function aiFork(token){
+		for(afi=0; afi<3; afi++){
+			for(afj=0; afj<3; afj++){
+				cloneBoard();
+				if(testBoard == ""){
+					testBoard[afi][afj] = this.token;
+					if(isFork(this.token) > 1){
+						return afi + "" + afj;
+					}	
+				}
+			}
+		}
+		return null;
+	}
+
+	function isFork(token){
+		return rowFork(this.token) + colFork(this.token) + diaFork(this.token);
+	}
+
+	function rowFork(token){
+		rfCount = 0;
+		for(rfi=0; rfi<3; rfi++){
+			if(((testBoard[rfi][0] === testBoard[rfi][1] && testBoard[rfi][2] === "") || (testBoard[rfi][1] === testBoard[rfi][2]) && testBoard[rfi][0] === "" && testBoard[rfi][1] === this.token)){
+				rfCount++;
+			}
+		}
+		return rfCount;
+	}
+
+	function colFork(token){
+		cfCount = 0;
+		for(cfi=0; cfi<3; cfi++){
+			if(((testBoard[0][cfi] === testBoard[1][cfi] && testBoard[2][cfi] === "") || (testBoard[1][cfi] === testBoard[2][cfi]) && testBoard[0][cfi] === "") && testBoard[1][cfi] === this.token){
+				cfCount++;
+			}
+		}
+		return cfCount;
+	}
+
+	function diaFork(token){
+		dfCount = 0;
+		if(testBoard[0][0] === testBoard[1][1] && testBoard[2][2] === "" && testBoard[0][0] !== "" && testBoard[0][0] === this.token){
+			dfCount++;
+		}
+
+		if(testBoard[1][1] === testBoard[2][2] && testBoard[0][0] === "" && testBoard[1][1] !== "" && testBoard[1][1] === this.token){
+			dfCount++;
+		}
+
+		if(testBoard[2][0] === testBoard[1][1] && testBoard[0][2] === "" && testBoard[2][0] !== "" && testBoard[2][0] === this.token){
+			dfCount++;
+		}
+
+		if(testBoard[0][2] === testBoard[1][1] && testBoard[2][0] === "" && testBoard[0][2] !== "" && testBoard[0][2] === this.token){
+			dfCount++;
+		}
+
+		return dfCount;
+
 	}
 
 	function cloneBoard(){
