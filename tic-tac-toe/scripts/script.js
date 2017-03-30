@@ -123,7 +123,6 @@ $(document).ready(function() {
 		aiBlockValue = aiBlock();
 		aiForkValue = aiFork(ai.token);
 		aiBlockForkValue = aiFork(player.token);
-		console.log(aiForkValue);
 		aiCorner = aiPlayCorner();
 
 		if(aiWinValue !== null){
@@ -234,7 +233,6 @@ $(document).ready(function() {
 
 	// Possible Forks
 	function isFork(token){
-		console.log(rowFork(this.token) + colFork(this.token) + diaFork(this.token));
 		return rowFork(this.token) + colFork(this.token) + diaFork(this.token);
 	}
 
@@ -253,8 +251,7 @@ $(document).ready(function() {
 			if(testBoard[rfi][0] == testBoard[rfi][2] && testBoard[rfi][1] == "" && testBoard[rfi][0] == this.token){
 				rfCount++;
 			}
-		}
-		console.log("Col Fork = " + rfCount);
+
 		return rfCount;
 	}
 
@@ -346,13 +343,11 @@ $(document).ready(function() {
 				$("#winner").html(wc + " WINS!");
 				$("#winner").show();
 				incrementScore(wc);
-				console.log(wc + " WINS!");
 				return true;
 				break;
 			case "D":
 				$("#winner").html("The Cat WINS!");
 				$("#winner").show();
-				console.log("Cat Wins!");
 				return true;
 				break;
 		}
