@@ -118,7 +118,6 @@ $(document).ready(function() {
 		aiForkValue = aiFork(ai.token);
 		aiBlockForkValue = aiFork(player.token);
 		console.log(aiForkValue);
-		console.log(aiBlockValue);
 		if(aiWinValue !== null){
 			board[aiWinValue.substring(0, 1)][aiWinValue.substring(1, 2)] = ai.token;
 			isPlayerTurn = true;
@@ -192,44 +191,73 @@ $(document).ready(function() {
 	}
 
 	function isFork(token){
+		console.log(rowFork(this.token) + colFork(this.token) + diaFork(this.token));
 		return rowFork(this.token) + colFork(this.token) + diaFork(this.token);
 	}
 
+	// Check for unblocked rows where a second token can be place
 	function rowFork(token){
 		rfCount = 0;
 		for(rfi=0; rfi<3; rfi++){
-			if(((testBoard[rfi][0] === testBoard[rfi][1] && testBoard[rfi][2] === "") || (testBoard[rfi][1] === testBoard[rfi][2]) && testBoard[rfi][0] === "" && testBoard[rfi][1] === this.token)){
+			if(testBoard[rfi][0] === testBoard[rfi][1] && testBoard[rfi][2] === "" && testBoard[rfi][1] === this.token){
+				rfCount++;
+			}
+
+			if(testBoard[rfi][1] === testBoard[rfi][2] && testBoard[rfi][0] === "" && testBoard[rfi][1] === this.token){
+				rfCount++;
+			}
+
+			if(testBoard[rfi][0] === testBoard[rfi][2] && testBoard[rfi][1] === "" && testBoard[rfi][0] === this.token){
 				rfCount++;
 			}
 		}
+		console.log("Col Fork = " + rfCount);
 		return rfCount;
 	}
 
+	// check for unblocked columns where a second token can be placed
 	function colFork(token){
 		cfCount = 0;
 		for(cfi=0; cfi<3; cfi++){
-			if(((testBoard[0][cfi] === testBoard[1][cfi] && testBoard[2][cfi] === "") || (testBoard[1][cfi] === testBoard[2][cfi]) && testBoard[0][cfi] === "") && testBoard[1][cfi] === this.token){
+			if(testBoard[0][cfi] === testBoard[1][cfi] && testBoard[2][cfi] === "" && testBoard[1][cfi] === this.token){
+				cfCount++;
+			}
+
+			if(testBoard[1][cfi] === testBoard[2][cfi] && testBoard[0][cfi] === "" && testBoard[1][cfi] === this.token){
+				cfCount++;
+			}
+
+			if(testBoard[0][cfi] === testBoard[2][cfi] && testBoard[1][cfi] === "" && testBoard[0][cfi] === this.token){
 				cfCount++;
 			}
 		}
 		return cfCount;
 	}
 
+	// check for unblock diagonals where a second token can be placed.
 	function diaFork(token){
 		dfCount = 0;
-		if(testBoard[0][0] === testBoard[1][1] && testBoard[2][2] === "" && testBoard[0][0] !== "" && testBoard[0][0] === this.token){
+		if(testBoard[0][0] === testBoard[1][1] && testBoard[2][2] === "" && testBoard[0][0] === this.token){
 			dfCount++;
 		}
 
-		if(testBoard[1][1] === testBoard[2][2] && testBoard[0][0] === "" && testBoard[1][1] !== "" && testBoard[1][1] === this.token){
+		if(testBoard[1][1] === testBoard[2][2] && testBoard[0][0] === "" && testBoard[1][1] === this.token){
 			dfCount++;
 		}
 
-		if(testBoard[2][0] === testBoard[1][1] && testBoard[0][2] === "" && testBoard[2][0] !== "" && testBoard[2][0] === this.token){
+		if(testBoard[0][0] === testBoard[2][2] && testBoard[1][1] === "" && testBoard[0][0] === this.token){
 			dfCount++;
 		}
 
-		if(testBoard[0][2] === testBoard[1][1] && testBoard[2][0] === "" && testBoard[0][2] !== "" && testBoard[0][2] === this.token){
+		if(testBoard[2][0] === testBoard[1][1] && testBoard[0][2] === "" && testBoard[2][0] === this.token){
+			dfCount++;
+		}
+
+		if(testBoard[0][2] === testBoard[1][1] && testBoard[2][0] === "" && testBoard[0][2] === this.token){
+			dfCount++;
+		}
+
+		if(testBoard[0][2] === testBoard[2][2] && testBoard[1][1] === "" && testBoard[0][2] === this.token){
 			dfCount++;
 		}
 
