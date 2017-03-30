@@ -45,7 +45,7 @@ th{
 
 @media (min-width: 768px){
   .table{
-    font-size: 68px;
+    font-size: 48px;
   }  
 }
 
@@ -70,8 +70,8 @@ th{
 
 @media (min-width: 768px){
   .square{
-    height: 125px;
-    width: 125px;
+    height: 100px;
+    width: 100px;
   }  
 }
 
@@ -90,7 +90,7 @@ th{
 
 @media (min-width: 768px){
   #winner{
-    font-size: 48px;
+    font-size: 38px;
   }  
 }
 
