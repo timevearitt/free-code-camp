@@ -12,17 +12,19 @@ $(document).ready(function() {
 	var ai = {token:"O", wins: 0};
 	var myMatch;
 
+
+	// UI EVENTS *********************************************
 	// Hide Inactive Div's
 	$("#info").hide();
 	
-	// Select to start the match
+	// Select to start the match as X
 	$("#X").click(function(event){
-
 		myMatch = setInterval(match, 100);
 		$("#selectToken").hide();
 		$("#winner").hide();
 	});
 
+	// Select to start the match as o
 	$("#O").click(function(event){
 		player.token = "O";
 		ai.token = "X";
@@ -37,8 +39,9 @@ $(document).ready(function() {
 		initGame();
 	});
 
-	// Match loop
+	// MATCH LOOP *********************************************
 	function match(){
+		// PLAYER TURN
 		if(isPlayerTurn && !isGameOver){
 			// make player move
 			$(".square").click(function(event){
@@ -56,16 +59,18 @@ $(document).ready(function() {
 			});		
 		}
 		
-		// AI Turn
+		// AI TURN
 		if(!isPlayerTurn && !isGameOver){
 			hardAiTurn();
 			isGameOver = gameOver();
 		}
 
+		// if game is over show the results
 		if(isGameOver){
 			$("#info").show();
 		}
 
+		// redraw the game board
 		updateBoard();
 	}
 
@@ -80,6 +85,7 @@ $(document).ready(function() {
 		turnCount = 0;
 		gameNum++;
 
+		// rotate first player
 		if(player.token === "X"){
 			if(gameNum % 2 == 0){
 				isPlayerTurn = true;
@@ -98,7 +104,7 @@ $(document).ready(function() {
 		$("#info").hide();
 	}
 
-	//Computer move logic
+	// AI GAME LOGIC******************************************************
 	function aiTurn(){
 		row = Math.floor(Math.random() * 3);
 		col = Math.floor(Math.random() * 3);
@@ -118,31 +124,44 @@ $(document).ready(function() {
 		aiForkValue = aiFork(ai.token);
 		aiBlockForkValue = aiFork(player.token);
 		console.log(aiForkValue);
+		aiCorner = aiPlayCorner();
+
 		if(aiWinValue !== null){
+			// Can I win?
 			board[aiWinValue.substring(0, 1)][aiWinValue.substring(1, 2)] = ai.token;
-			isPlayerTurn = true;
-			turnCount++;
+			aiTurnOver()
 		}else if(aiBlockValue !== null){
+			// Do I need to block the player?
 			board[aiBlockValue.substring(0, 1)][aiBlockValue.substring(1, 2)] = ai.token;
-			isPlayerTurn = true;
-			turnCount++;
+			aiTurnOver()
 		}else if(aiForkValue !== null){
+			// Can I fork?
 			board[aiForkValue.substring(0, 1)][aiForkValue.substring(1, 2)] = ai.token;
-			isPlayerTurn = true;
-			turnCount++;
+			aiTurnOver()
 		}else if(aiBlockForkValue !== null){
+			// Do I need to block a fork?
 			board[aiBlockForkValue.substring(0, 1)][aiBlockForkValue.substring(1, 2)] = ai.token;
-			isPlayerTurn = true;
-			turnCount++;
+			aiTurnOver()
 		}else if(board[1][1] === ""){
+			// Own the center tile
 			board[1][1] = ai.token;
-			isPlayerTurn = true;
-			turnCount++;
+			aiTurnOver()
+		}else if(aiCorner !== null){
+			// play an open corner
+			board[aiCorner.substring(0,1)][aiCorner.substring(1,2)] = ai.token;
+			aiTurnOver();
 		}else{
+			// random but should only play the side
 			aiTurn();
 		}
 	}
 
+	function aiTurnOver(){
+		isPlayerTurn = true;
+		turnCount++;
+	}
+
+	// AI Check for winning move
 	function aiWin(){
 		for(aiWini=0; aiWini<3; aiWini++){
 			for(aiWinj=0; aiWinj<3; aiWinj++){
@@ -159,6 +178,7 @@ $(document).ready(function() {
 		return null;
 	}
 
+	// AI Check to block winning move
 	function aiBlock(){
 		for(abi=0; abi<3; abi++){
 			for(abj=0; abj<3; abj++){
@@ -175,11 +195,33 @@ $(document).ready(function() {
 		return null;
 	}
 
+	// AI check for open corners
+	function aiPlayCorner(){
+		if(board[0][0] === ""){
+			return "00";
+		}
+
+		if(board[0][2] === ""){
+			return "02";
+		}
+
+		if(board[2][0] === ""){
+			return "20";
+		}
+
+		if(board[2][2] === ""){
+			return "22";
+		}
+
+		return null;
+	}
+
+	// AI Check for fork to play or block
 	function aiFork(token){
 		for(afi=0; afi<3; afi++){
 			for(afj=0; afj<3; afj++){
 				cloneBoard();
-				if(testBoard == ""){
+				if(testBoard[afi][afj] == ""){
 					testBoard[afi][afj] = this.token;
 					if(isFork(this.token) > 1){
 						return afi + "" + afj;
@@ -190,6 +232,7 @@ $(document).ready(function() {
 		return null;
 	}
 
+	// Possible Forks
 	function isFork(token){
 		console.log(rowFork(this.token) + colFork(this.token) + diaFork(this.token));
 		return rowFork(this.token) + colFork(this.token) + diaFork(this.token);
@@ -199,15 +242,15 @@ $(document).ready(function() {
 	function rowFork(token){
 		rfCount = 0;
 		for(rfi=0; rfi<3; rfi++){
-			if(testBoard[rfi][0] === testBoard[rfi][1] && testBoard[rfi][2] === "" && testBoard[rfi][1] === this.token){
+			if(testBoard[rfi][0] == testBoard[rfi][1] && testBoard[rfi][2] == "" && testBoard[rfi][1] == this.token){
 				rfCount++;
 			}
 
-			if(testBoard[rfi][1] === testBoard[rfi][2] && testBoard[rfi][0] === "" && testBoard[rfi][1] === this.token){
+			if(testBoard[rfi][1] == testBoard[rfi][2] && testBoard[rfi][0] == "" && testBoard[rfi][1] == this.token){
 				rfCount++;
 			}
 
-			if(testBoard[rfi][0] === testBoard[rfi][2] && testBoard[rfi][1] === "" && testBoard[rfi][0] === this.token){
+			if(testBoard[rfi][0] == testBoard[rfi][2] && testBoard[rfi][1] == "" && testBoard[rfi][0] == this.token){
 				rfCount++;
 			}
 		}
@@ -219,15 +262,15 @@ $(document).ready(function() {
 	function colFork(token){
 		cfCount = 0;
 		for(cfi=0; cfi<3; cfi++){
-			if(testBoard[0][cfi] === testBoard[1][cfi] && testBoard[2][cfi] === "" && testBoard[1][cfi] === this.token){
+			if(testBoard[0][cfi] == testBoard[1][cfi] && testBoard[2][cfi] == "" && testBoard[1][cfi] == this.token){
 				cfCount++;
 			}
 
-			if(testBoard[1][cfi] === testBoard[2][cfi] && testBoard[0][cfi] === "" && testBoard[1][cfi] === this.token){
+			if(testBoard[1][cfi] == testBoard[2][cfi] && testBoard[0][cfi] == "" && testBoard[1][cfi] == this.token){
 				cfCount++;
 			}
 
-			if(testBoard[0][cfi] === testBoard[2][cfi] && testBoard[1][cfi] === "" && testBoard[0][cfi] === this.token){
+			if(testBoard[0][cfi] == testBoard[2][cfi] && testBoard[1][cfi] == "" && testBoard[0][cfi] == this.token){
 				cfCount++;
 			}
 		}
@@ -237,34 +280,34 @@ $(document).ready(function() {
 	// check for unblock diagonals where a second token can be placed.
 	function diaFork(token){
 		dfCount = 0;
-		if(testBoard[0][0] === testBoard[1][1] && testBoard[2][2] === "" && testBoard[0][0] === this.token){
+		if(testBoard[0][0] == testBoard[1][1] && testBoard[2][2] == "" && testBoard[0][0] == this.token){
 			dfCount++;
 		}
 
-		if(testBoard[1][1] === testBoard[2][2] && testBoard[0][0] === "" && testBoard[1][1] === this.token){
+		if(testBoard[1][1] == testBoard[2][2] && testBoard[0][0] == "" && testBoard[1][1] == this.token){
 			dfCount++;
 		}
 
-		if(testBoard[0][0] === testBoard[2][2] && testBoard[1][1] === "" && testBoard[0][0] === this.token){
+		if(testBoard[0][0] == testBoard[2][2] && testBoard[1][1] == "" && testBoard[0][0] == this.token){
 			dfCount++;
 		}
 
-		if(testBoard[2][0] === testBoard[1][1] && testBoard[0][2] === "" && testBoard[2][0] === this.token){
+		if(testBoard[2][0] == testBoard[1][1] && testBoard[0][2] == "" && testBoard[2][0] == this.token){
 			dfCount++;
 		}
 
-		if(testBoard[0][2] === testBoard[1][1] && testBoard[2][0] === "" && testBoard[0][2] === this.token){
+		if(testBoard[0][2] == testBoard[1][1] && testBoard[2][0] == "" && testBoard[0][2] == this.token){
 			dfCount++;
 		}
 
-		if(testBoard[0][2] === testBoard[2][2] && testBoard[1][1] === "" && testBoard[0][2] === this.token){
+		if(testBoard[0][2] == testBoard[2][2] && testBoard[1][1] == "" && testBoard[0][2] == this.token){
 			dfCount++;
 		}
 
 		return dfCount;
-
 	}
 
+	// Make a clone of the board for AI move test
 	function cloneBoard(){
 		testBoard = [
 				["","",""],
@@ -278,7 +321,7 @@ $(document).ready(function() {
 		}
 	}
 
-	//Redraws the game board
+	// DRAW THE GAME BOARD ****************************************************
 	function updateBoard(){
 		for(ubi=0; ubi<3; ubi++){
 			for(ubj=0; ubj<3; ubj++){
@@ -286,6 +329,8 @@ $(document).ready(function() {
 			}
 		}
 	}
+
+	// GAME OVER AND WINNING CONDITION LOGIC **********************************
 
 	//checks for win or draw.  Increments score and updates winner div.
 	function gameOver(){
@@ -399,53 +444,4 @@ $(document).ready(function() {
 		$("#aiScore").html("CPU</br>" + ai.wins);
 		//$("#score").html("PLAYER " + player.wins + " - AI: " + ai.wins);
 	}
-	/*
-	function score(simWin){
-		if(simWin === ai.token){
-			return 10;
-		}else if(simWin === player.token){
-			return -10;
-		}else{
-			return 0;
-		}
-	}
-	
-	function miniMaxAI(simBoard){
-		sb = simBoard;
-		terminal = winConditions(sb)
-		if(terminal !== null){
-			return score(terminal);
-		}else{
-			availablePositions = availableSquares(sb);
-
-			availableNextStates = availablePositions.map(function(pos){
-				//action = 
-			});
-		}
-	}
-
-	function availableSquares(simBoard){
-		var ap = [];
-		for(i=0; i<3; i++){
-			for(j=0; j<3; j++){
-				if(simBoard[i][j] === ""){
-					ap.push(simBoard[i][j]);
-				}
-			}
-		}
-		return ap;
-	}
-
-	var AIAction = function(pos){
-		this.movePosition = pos;
-
-		this.minimaxVal = 0;
-
-		this.applyTo = function(state) {
-			var next = new State(state);
-
-			//next.
-		}
-	}
-	*/
 });
