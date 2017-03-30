@@ -251,7 +251,7 @@ $(document).ready(function() {
 			if(testBoard[rfi][0] == testBoard[rfi][2] && testBoard[rfi][1] == "" && testBoard[rfi][0] == this.token){
 				rfCount++;
 			}
-
+		}
 		return rfCount;
 	}
 
@@ -437,6 +437,5 @@ $(document).ready(function() {
 		}
 		$("#playerScore").html("PLAYER</br>" + player.wins);
 		$("#aiScore").html("CPU</br>" + ai.wins);
-		//$("#score").html("PLAYER " + player.wins + " - AI: " + ai.wins);
 	}
 });
