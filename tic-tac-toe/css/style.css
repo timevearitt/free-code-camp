@@ -20,7 +20,7 @@ h1{
 
 .container {
      max-width: 960px;
-     margin-top: 50px;
+     margin-top: 25px;
      border-radius: 15px;
   }
 
@@ -45,7 +45,7 @@ th{
 
 @media (min-width: 768px){
   .table{
-    font-size: 82px;
+    font-size: 68px;
   }  
 }
 
@@ -70,8 +70,8 @@ th{
 
 @media (min-width: 768px){
   .square{
-    height: 150px;
-    width: 150px;
+    height: 125px;
+    width: 125px;
   }  
 }
 
