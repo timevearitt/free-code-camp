@@ -1,0 +1,49 @@
+body{
+	font-family: 'Alfa Slab One', cursive;
+}
+
+#simon{
+	border-radius: 50%;
+	background-color: #404040;
+	width: 634px;
+	height: 634px;
+	margin: 0 auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	position: relative;
+}
+
+#namePlate{
+	border-radius: 50%;
+	width: 318px;
+	height: 318px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin: -159px 0px 0px -159px;
+	
+
+	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+0,cccccc+100;Gren+3D */
+	background: #eeeeee; /* Old browsers */
+	background: -moz-linear-gradient(top, #eeeeee 0%, #cccccc 100%); /* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #eeeeee 0%,#cccccc 100%); /* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #eeeeee 0%,#cccccc 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eeeeee', endColorstr='#cccccc',GradientType=0 ); /* IE6-9 */
+}
+
+#nameText{
+	margin-top: 40px;
+	color: #000;
+	font-size: 48px;
+}
+
+#btnStart{
+	border-radius: 50%;
+	width: 40px;
+	height: 40px;
+	background-color: red;
+	top: 50%;
+	left: 50%;
+	margin: -20px 0px 0px -20px;
+	position: absolute;
+}
