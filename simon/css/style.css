@@ -2,11 +2,15 @@ body{
 	font-family: 'Alfa Slab One', cursive;
 }
 
+.container-fluid{
+     max-width: 960px;
+  }
+
 #simon{
 	border-radius: 50%;
 	background-color: #404040;
-	width: 634px;
-	height: 634px;
+	width: 480px;
+	padding-top: 480px;
 	margin: 0 auto;
 	margin-top: 50px;
 	margin-bottom: 50px;
@@ -15,14 +19,13 @@ body{
 
 #namePlate{
 	border-radius: 50%;
-	width: 318px;
-	height: 318px;
+	width: 50%;
+	height: 50%;
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	margin: -159px 0px 0px -159px;
+	margin: -120px 0px 0px -120px;
 	
-
 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#eeeeee+0,cccccc+100;Gren+3D */
 	background: #eeeeee; /* Old browsers */
 	background: -moz-linear-gradient(top, #eeeeee 0%, #cccccc 100%); /* FF3.6-15 */
@@ -32,18 +35,69 @@ body{
 }
 
 #nameText{
-	margin-top: 40px;
+	margin-top: 25px;
 	color: #000;
-	font-size: 48px;
+	font-size: 40px;
+}
+
+#start{
+	width: 50px;
+	font-size: 12px;
+	margin: 0 auto;
+	margin-top: 10px;
 }
 
 #btnStart{
 	border-radius: 50%;
-	width: 40px;
-	height: 40px;
+	width: 26px;
+	height: 26px;
 	background-color: red;
 	top: 50%;
 	left: 50%;
-	margin: -20px 0px 0px -20px;
+	margin: -13px 0px 0px -13px;
+	position: absolute;
+}
+
+#strict{
+	width: 100px;
+	float: right;
+	font-size: 12px;
+	margin-top: -17px;
+	margin-right: 10px;
+}
+
+#btnStrict{
+	border-radius: 50%;
+	width: 26px;
+	height: 26px;
+	background-color: yellow;
+	top: 50%;
+	left: 75%;
+	margin: -13px 0px 0px -13px;
+	position: absolute;
+}
+
+#strictLight{
+	background-color: #560000;
+	border-radius: 50%;
+	border: 2px solid black;
+	width: 10px;
+	height: 10px;
+	top: 60%;
+	left: 75%;
+	margin: -5px 0px 0px -5px;
+	position: absolute;
+}
+
+#count{
+	border-radius: 10px;
+	background-color: #560000;
+	color: red;
+	font-size: 28px;
+	width: 50px;
+	height: 40px;
+	top: 50%;
+	left: 25%;
+	margin: -20px 0px 0px -25px;
 	position: absolute;
 }
