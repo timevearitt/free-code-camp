@@ -160,6 +160,6 @@ body{
   	overflow: hidden;
 }
 
-.color{
-	overflow: hidden;
+button:focus{
+  outline:0;
 }

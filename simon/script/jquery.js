@@ -5,67 +5,97 @@ $(document).ready(function() {
 	var round = 0;
 	var state = "off";
 	var index = 0;
+	var strict = false;
 	var game;
 
 	
 	// Game Loop
 	function play(){
-		if(state === "simon"){
-			addToSeq();
-			displayRound();
-			console.log(simonSeq);
-			displaySeq();
-			playerSeq = [];
-			console.log("Player Seq = " + playerSeq)
-			state = "player";
-		}
-
-		if(state === "player"){
-			console.log("player turn");
-			$("#green").click(function(event){
-				state = "check";
-				playerSeq.push("green");
-				console.log(playerSeq);
-				checkPlayerInput();
-				
-			});
-
-			$("#red").click(function(event){
-				state = "check";
-				playerSeq.push("red");
-				console.log(playerSeq);
-				checkPlayerInput();
-				
-			});
-
-			$("#yellow").click(function(event){
-				state = "check";
-				playerSeq.push("yellow");
-				console.log(playerSeq);
-				checkPlayerInput();
-				
-			});
-
-			$("#blue").click(function(event){
-				state = "check";
-				playerSeq.push("blue");
-				console.log(playerSeq);
-				checkPlayerInput();
-				
-			});
+		if(state == "simon"){
+			if(simonSeq.length <= 5){
+				addToSeq();
+				displayRound();
+				console.log("simon seq" + simonSeq);
+				displaySeq();
+				console.log("Player Seq = " + playerSeq)
+				state = "player";
+			}else{
+				win();
+				state = "gameOver";
+			}
 		}
 	}
 
+	$("#green").click(function(event){
+		if(state == "player"){
+			playerSeq.push("green");
+			lightOn("green");
+			checkPlayerInput();
+			console.log("ps = " + playerSeq);
+		}	
+	});
+
+	$("#red").click(function(event){
+		if(state == "player"){
+			playerSeq.push("red");
+			lightOn("red");
+			checkPlayerInput();
+			console.log("ps = " + playerSeq);
+		}
+	});
+
+	$("#yellow").click(function(event){
+		if(state == "player"){
+			playerSeq.push("yellow");
+			lightOn("yellow");
+			checkPlayerInput();
+			console.log("ps = " + playerSeq);
+		}
+	});
+
+	$("#blue").click(function(event){
+		if(state == "player"){
+			playerSeq.push("blue");
+			lightOn("blue");
+			checkPlayerInput();
+			console.log("ps = " + playerSeq);
+		}
+	});
+
 	$("#start").click(function(event){
+		if(state !== "off"){
+			clearInterval(game);
+			initializeGame();
+		}
 		state = "simon";
-		game = setInterval(play, 100);
+		game = setInterval(play, 33);
+	});
+
+	$("#btnStrict").click(function(event){
+		if(state != "off"){
+			strict = !strict;
+			console.log(strict);
+			if(strict){
+				$("#strictLight").css("background-color", "red");
+			}else{
+				$("#strictLight").css("background-color", "#560000");
+			}
+		}
 	});
 	
 	// Game State "on" - turn on game
 	$("#power").click(function(event){
-		state = "on";
-		displayRound();
-		$("#power").css("color", "green");
+		if(state === "off"){
+			state = "on";
+			displayRound();
+			$("#power").css("color", "green");
+		}else{
+			state = "off";
+			$("#power").css("color", "black");
+			$("#strictLight").css("background-color", "#560000");
+			$("#round").html("");
+			strict = false;
+		}
 	});
 
 	// DISPLAY BOARD *********************************************************
@@ -109,23 +139,38 @@ $(document).ready(function() {
 		$(lightDiv).animate({opacity: '.3'}, "fast");
 	}
 
+	function initializeGame(){
+		state = "on";
+		playerSeq = [];
+		simonSeq = [];
+		round = 0;
+		index = 0;
+	}
+
+	function win(){
+		lightDiv = "#" + simonSeq[5];
+		for(i=0; i<7; i++){
+			$(lightDiv).animate({opacity: '1'}, "fast");
+			$(lightDiv).animate({opacity: '.3'}, "fast");
+		}
+
+		initializeGame();
+		
+	}
+
 	// PLAYER LOGIC **************************************************************
 
 	function checkPlayerInput(){
 		for(var i=0; i<playerSeq.length; i++){
-			if(playerSeq[i] !== simonSeq[i]){
+			if(playerSeq[i] != simonSeq[i]){
 				displayError();
 			}
 		}
-
-		state = "player";
 
 		if(playerSeq.length == simonSeq.length){
 			state = "simon";
 			playerSeq = [];
 		}
-
-		
 	}
 
 	// Game State "off" - turn off game
