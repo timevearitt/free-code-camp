@@ -4,7 +4,6 @@ $(document).ready(function() {
 	var colors = ["green", "red", "yellow", "blue"];
 	var round = 0;
 	var state = "off";
-	var light;
 	var game;
 
 	$("#start").click(function(event){
@@ -62,16 +61,16 @@ $(document).ready(function() {
 		for(dsi=0; dsi<simonSeq.length; dsi++){
 			console.log("switch" + simonSeq[dsi]);
 			lightDiv = "#" + simonSeq[dsi];
-			lightOn();
-			light = setTimeout(lightOff, 1000);
+			$(lightDiv).animate({opacity: '1'}, 1000);
+			$(lightDiv).animate({opacity: '.3'}, 1000);
 		}
-
-		
 	}
 
 	function lightOn(){
 		console.log("light " + lightDiv);
-		$(lightDiv).css("opacity", "1");
+		$(lightDiv).animate({opacity: '1'}, 1000);
+		$(lightDiv).animate({opacity: '.3'}, 1000);
+
 	}
 
 	function lightOff(){
