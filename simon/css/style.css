@@ -93,7 +93,7 @@ body{
 	position: absolute;
 }
 
-#count{
+#round{
 	border-radius: 10px;
 	background-color: #560000;
 	color: red;
@@ -115,6 +115,7 @@ body{
 #green{
 	position: absolute;
   	background-color: green;
+  	opacity: .3;
   	width: 220px;
   	height: 220px;
   	margin: -20px 0 0 -20px;
@@ -125,6 +126,7 @@ body{
 #red{
 	position: absolute;
   	background-color: red;
+  	opacity: .3;
   	left: 240px;
   	width: 220px;
   	height: 220px;
@@ -136,6 +138,7 @@ body{
 #yellow{
 	position: absolute;
   	background-color: yellow;
+  	opacity: .3;
   	width: 220px;
   	height: 220px;
   	top: 240px;
@@ -147,6 +150,7 @@ body{
 #blue{
 	position: absolute;
   	background-color: blue;
+  	opacity: .3;
   	width: 220px;
   	height: 220px;
   	top: 240px;
