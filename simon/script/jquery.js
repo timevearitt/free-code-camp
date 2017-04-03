@@ -4,36 +4,63 @@ $(document).ready(function() {
 	var colors = ["green", "red", "yellow", "blue"];
 	var round = 0;
 	var state = "off";
+	var index = 0;
 	var game;
 
-	$("#start").click(function(event){
-		state = "simon";
-		game = setInterval(play, 10);
-	});
-
+	
+	// Game Loop
 	function play(){
 		if(state === "simon"){
 			addToSeq();
 			displayRound();
 			console.log(simonSeq);
 			displaySeq();
+			playerSeq = [];
+			console.log("Player Seq = " + playerSeq)
 			state = "player";
-
 		}
 
 		if(state === "player"){
 			console.log("player turn");
 			$("#green").click(function(event){
-				state = "simon";
+				state = "check";
+				playerSeq.push("green");
+				console.log(playerSeq);
+				checkPlayerInput();
+				
+			});
+
+			$("#red").click(function(event){
+				state = "check";
+				playerSeq.push("red");
+				console.log(playerSeq);
+				checkPlayerInput();
+				
+			});
+
+			$("#yellow").click(function(event){
+				state = "check";
+				playerSeq.push("yellow");
+				console.log(playerSeq);
+				checkPlayerInput();
+				
+			});
+
+			$("#blue").click(function(event){
+				state = "check";
+				playerSeq.push("blue");
+				console.log(playerSeq);
+				checkPlayerInput();
+				
 			});
 		}
-
-		
-		
 	}
 
-
-	// Game Loop
+	$("#start").click(function(event){
+		state = "simon";
+		game = setInterval(play, 100);
+	});
+	
 	// Game State "on" - turn on game
 	$("#power").click(function(event){
 		state = "on";
@@ -41,12 +68,20 @@ $(document).ready(function() {
 		$("#power").css("color", "green");
 	});
 
+	// DISPLAY BOARD *********************************************************
+
 	function displayRound(){
 		if(round < 10){
 			$("#round").html("0" + round);
 		}else{
 			$("#round").html(round);
 		}
+	}
+
+	function displayError(){
+		$("#round").html("!!");
+		setTimeout(displayRound, 2000);
+		playerSeq = [];
 	}
 
 	function addToSeq(){
@@ -58,25 +93,40 @@ $(document).ready(function() {
 	}
 
 	function displaySeq(){
-		for(dsi=0; dsi<simonSeq.length; dsi++){
-			console.log("switch" + simonSeq[dsi]);
-			lightDiv = "#" + simonSeq[dsi];
-			$(lightDiv).animate({opacity: '1'}, 1000);
-			$(lightDiv).animate({opacity: '.3'}, 1000);
+		index = 0;
+		var	lightInterval = setInterval(function() {
+			lightOn(simonSeq[index]);
+			index++;
+			if(index >= round){
+				clearInterval(lightInterval);
+			}
+		}, 1000);	
+	}
+
+	function lightOn(color){
+		lightDiv = "#" + color;
+		$(lightDiv).animate({opacity: '1'}, "slow");
+		$(lightDiv).animate({opacity: '.3'}, "fast");
+	}
+
+	// PLAYER LOGIC **************************************************************
+
+	function checkPlayerInput(){
+		for(var i=0; i<playerSeq.length; i++){
+			if(playerSeq[i] !== simonSeq[i]){
+				displayError();
+			}
 		}
+
+		state = "player";
+
+		if(playerSeq.length == simonSeq.length){
+			state = "simon";
+			playerSeq = [];
+		}
+
+		
 	}
-
-	function lightOn(){
-		console.log("light " + lightDiv);
-		$(lightDiv).animate({opacity: '1'}, 1000);
-		$(lightDiv).animate({opacity: '.3'}, 1000);
-
-	}
-
-	function lightOff(){
-		$(lightDiv).css("opacity", ".3");
-	}
-
 
 	// Game State "off" - turn off game
 
