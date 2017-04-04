@@ -12,7 +12,7 @@ $(document).ready(function() {
 	// Game Loop
 	function play(){
 		if(state == "simon"){
-			if(simonSeq.length <= 5){
+			if(simonSeq.length <= 19){
 				addToSeq();
 				displayRound();
 				console.log("simon seq" + simonSeq);
@@ -140,11 +140,15 @@ $(document).ready(function() {
 	}
 
 	function initializeGame(){
-		state = "on";
+		
 		playerSeq = [];
 		simonSeq = [];
 		round = 0;
 		index = 0;
+		
+		if(state !== "on"){
+			state = "simon";
+		}
 	}
 
 	function win(){
@@ -154,8 +158,7 @@ $(document).ready(function() {
 			$(lightDiv).animate({opacity: '.3'}, "fast");
 		}
 
-		initializeGame();
-		
+		initializeGame();	
 	}
 
 	// PLAYER LOGIC **************************************************************
@@ -164,6 +167,10 @@ $(document).ready(function() {
 		for(var i=0; i<playerSeq.length; i++){
 			if(playerSeq[i] != simonSeq[i]){
 				displayError();
+				if(strict){
+					setTimeout(initializeGame, 1750);
+					break;
+				}
 			}
 		}
 
