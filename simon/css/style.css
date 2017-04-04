@@ -1,4 +1,5 @@
 body{
+	background-image: url("../images/wood_pattern_@2X.png");
 	font-family: 'Alfa Slab One', cursive;
 }
 
@@ -17,6 +18,7 @@ body{
 	margin-bottom: 50px;
 	overflow: hidden;
 	position: relative;
+	box-shadow: 10px 10px 5px #888888;
 }
 
 #namePlate{
