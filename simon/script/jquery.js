@@ -6,30 +6,26 @@ $(document).ready(function() {
 	var state = "off";
 	var index = 0;
 	var strict = false;
+	var difficulty = "slow";
 	var game;
+
 
 	
 	// Game Loop
 	function play(){
-		if(state == "simon"){
-			if(simonSeq.length <= 19){
-				addToSeq();
-				displayRound();
-				console.log("simon seq" + simonSeq);
-				displaySeq();
-				console.log("Player Seq = " + playerSeq)
-				state = "player";
-			}else{
-				win();
-				state = "gameOver";
-			}
+		if(state === "simon"){
+			simonState();
+		}
+
+		if(state === "off"){
+			round = 0;
 		}
 	}
 
 	$("#green").click(function(event){
 		if(state == "player"){
 			playerSeq.push("green");
-			lightOn("green");
+			lightOn("green", "fast");
 			checkPlayerInput();
 			console.log("ps = " + playerSeq);
 		}	
@@ -38,7 +34,7 @@ $(document).ready(function() {
 	$("#red").click(function(event){
 		if(state == "player"){
 			playerSeq.push("red");
-			lightOn("red");
+			lightOn("red", "fast");
 			checkPlayerInput();
 			console.log("ps = " + playerSeq);
 		}
@@ -47,7 +43,7 @@ $(document).ready(function() {
 	$("#yellow").click(function(event){
 		if(state == "player"){
 			playerSeq.push("yellow");
-			lightOn("yellow");
+			lightOn("yellow", "fast");
 			checkPlayerInput();
 			console.log("ps = " + playerSeq);
 		}
@@ -56,7 +52,7 @@ $(document).ready(function() {
 	$("#blue").click(function(event){
 		if(state == "player"){
 			playerSeq.push("blue");
-			lightOn("blue");
+			lightOn("blue", "fast");
 			checkPlayerInput();
 			console.log("ps = " + playerSeq);
 		}
@@ -100,6 +96,21 @@ $(document).ready(function() {
 
 	// DISPLAY BOARD *********************************************************
 
+	function simonState(){
+		if(simonSeq.length <= 19){
+			addToSeq();
+			displayRound();
+			console.log("simon seq" + simonSeq);
+			checkDifficulty();
+			setTimeout(displaySeq, 1000);
+			console.log("Player Seq = " + playerSeq)
+			state = "player";
+		}else{
+			win();
+			state = "gameOver";
+		}
+	}
+
 	function displayRound(){
 		if(round < 10){
 			$("#round").html("0" + round);
@@ -125,7 +136,7 @@ $(document).ready(function() {
 	function displaySeq(){
 		index = 0;
 		var	lightInterval = setInterval(function() {
-			lightOn(simonSeq[index]);
+			lightOn(simonSeq[index], difficulty);
 			index++;
 			if(index >= round){
 				clearInterval(lightInterval);
@@ -133,14 +144,15 @@ $(document).ready(function() {
 		}, 1000);	
 	}
 
-	function lightOn(color){
-		lightDiv = "#" + color;
-		$(lightDiv).animate({opacity: '1'}, "slow");
-		$(lightDiv).animate({opacity: '.3'}, "fast");
+	function lightOn(color, speed){
+		if(state !== "off"){
+			lightDiv = "#" + color;
+			$(lightDiv).animate({opacity: '1'}, speed);
+			$(lightDiv).animate({opacity: '.3'}, "fast");	
+		}	
 	}
 
 	function initializeGame(){
-		
 		playerSeq = [];
 		simonSeq = [];
 		round = 0;
@@ -148,6 +160,16 @@ $(document).ready(function() {
 		
 		if(state !== "on"){
 			state = "simon";
+		}
+	}
+
+	function checkDifficulty(){
+		if(round < 6){
+			difficulty = "slow";
+		}else if(round < 14){
+			difficulty = 400;
+		}else{
+			difficulty = "fast";
 		}
 	}
 
