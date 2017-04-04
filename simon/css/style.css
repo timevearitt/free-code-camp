@@ -116,7 +116,7 @@ body{
 	
 #green{
 	position: absolute;
-  	background-color: green;
+  	background-color: #00FF00;
   	opacity: .3;
   	width: 220px;
   	height: 220px;
@@ -160,6 +160,11 @@ body{
   	margin: 5px 0 0 5px;
 	border-bottom-right-radius: 100%;
   	overflow: hidden;
+}
+
+.social{
+  color: #000;
+  margin: 10px 20px 0px 20px;
 }
 
 button:focus{

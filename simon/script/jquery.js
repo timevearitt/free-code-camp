@@ -34,7 +34,6 @@ $(document).ready(function() {
 			playerSeq.push("green");
 			lightOn("green", "fast");
 			checkPlayerInput();
-			console.log("ps = " + playerSeq);
 		}	
 	});
 
@@ -43,7 +42,6 @@ $(document).ready(function() {
 			playerSeq.push("red");
 			lightOn("red", "fast");
 			checkPlayerInput();
-			console.log("ps = " + playerSeq);
 		}
 	});
 
@@ -52,7 +50,6 @@ $(document).ready(function() {
 			playerSeq.push("yellow");
 			lightOn("yellow", "fast");
 			checkPlayerInput();
-			console.log("ps = " + playerSeq);
 		}
 	});
 
@@ -61,7 +58,6 @@ $(document).ready(function() {
 			playerSeq.push("blue");
 			lightOn("blue", "fast");
 			checkPlayerInput();
-			console.log("ps = " + playerSeq);
 		}
 	});
 
@@ -81,7 +77,6 @@ $(document).ready(function() {
 	$("#btnStrict").click(function(event){
 		if(state != "off"){
 			strict = !strict;
-			console.log(strict);
 			if(strict){
 				$("#strictLight").css("background-color", "red");
 			}else{
@@ -112,10 +107,8 @@ $(document).ready(function() {
 		if(simonSeq.length <= 19){
 			addToSeq();
 			displayRound();
-			console.log("simon seq" + simonSeq);
 			checkDifficulty();
 			setTimeout(displaySeq, 1000);
-			console.log("Player Seq = " + playerSeq)
 			state = "player";
 		}else{
 			win();
