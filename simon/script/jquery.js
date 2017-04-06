@@ -18,7 +18,6 @@ $(document).ready(function() {
 	// Runs simon seq and display logic.  Player moves are outside of the loop
 	// in the jQuery click functions
 	function play(){
-		console.log(state); 
 		if(state === "simon"){
 			simonState();
 		}
