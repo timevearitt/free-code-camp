@@ -316,10 +316,224 @@ $(document).ready(function() {
 		}
 	}
 
+		// check for unblocked columns where a second token can be placed
+	function colFork(token){
+		//BLOCK SCOPE
+		{
+			let i;
+			let j;
 
+			let cfCount = 0;
+			for(i=0; i<3; i++){
+				if(testBoard[0][i] == testBoard[1][i] && testBoard[2][i] == "" && testBoard[1][i] == this.token){
+					cfCount++;
+				}
 
+				if(testBoard[1][i] == testBoard[2][i] && testBoard[0][i] == "" && testBoard[1][i] == this.token){
+					cfCount++;
+				}
 
+				if(testBoard[0][i] == testBoard[2][i] && testBoard[1][i] == "" && testBoard[0][i] == this.token){
+					cfCount++;
+				}
+			}
+			return cfCount;
+		}
+	}
 
+		// check for unblock diagonals where a second token can be placed.
+	function diaFork(token){
+		// BLOCK SCOPE
+		{
+			let dfCount = 0;
+			if(testBoard[0][0] == testBoard[1][1] && testBoard[2][2] == "" && testBoard[0][0] == this.token){
+				dfCount++;
+			}
 
+			if(testBoard[1][1] == testBoard[2][2] && testBoard[0][0] == "" && testBoard[1][1] == this.token){
+				dfCount++;
+			}
+
+			if(testBoard[0][0] == testBoard[2][2] && testBoard[1][1] == "" && testBoard[0][0] == this.token){
+				dfCount++;
+			}
+
+			if(testBoard[2][0] == testBoard[1][1] && testBoard[0][2] == "" && testBoard[2][0] == this.token){
+				dfCount++;
+			}
+
+			if(testBoard[0][2] == testBoard[1][1] && testBoard[2][0] == "" && testBoard[0][2] == this.token){
+				dfCount++;
+			}
+
+			if(testBoard[0][2] == testBoard[2][2] && testBoard[1][1] == "" && testBoard[0][2] == this.token){
+				dfCount++;
+			}
+
+			return dfCount;
+		}
+	}
+
+		// Make a clone of the board for AI move test
+	function cloneBoard(){
+		testBoard = [
+				["","",""],
+				["","",""],
+				["","",""]
+			];
+
+		//BLOCK SCOPE
+		{
+			let i;
+			let j;
+
+			for(i=0; i<3; i++){
+				for(j=0; j<3; j++){
+					testBoard[i][j] = board[i][j];
+				}
+			}
+		}
+	}
+
+		// DRAW THE GAME BOARD ****************************************************
+	function updateBoard(){
+
+		//BLOCK SCOPE
+		{
+			let i;
+			let j;
+
+			for(i=0; i<3; i++){
+				for(j=0; j<3; j++){
+					$("#" + i + j).html(board[i][j]);
+				}
+			}
+		}
+	}
+
+		// GAME OVER AND WINNING CONDITION LOGIC **********************************
+
+	//checks for win or draw.  Increments score and updates winner div.
+	function gameOver(){
+
+		let wc = winConditions(board, game.turnCount);
+
+		switch(wc){
+			case null:
+				return false;
+				break;
+			case "X":
+			case "O":
+				$("#winner").html(wc + " WINS!");
+				$("#winner").show();
+				incrementScore(wc);
+				return true;
+				break;
+			case "D":
+				$("#winner").html("The Cat WINS!");
+				$("#winner").show();
+				return true;
+				break;
+		}
+	}
+
+		//Checks and returns winner value for X, O, or Draw.  Otherwise returns a null value
+	function winConditions(b, tc){
+		let winRow = checkRows(b);
+		let winCol = checkCols(b)
+		let winTD = checkTopDiagonal(b);
+		let winBD = checkBotDiagonal(b);
+		let winDraw = checkCat(tc);
+
+		if(winRow !== null){
+			return winRow;
+		}
+
+		if(winCol !== null){
+			return winCol;
+		}
+
+		if(winTD !== null){
+			return winTD;
+		}
+
+		if(winBD !== null){
+			return winBD;
+		}
+
+		if(winDraw !== null){
+			return winDraw;
+		}
+
+		return null;
+	}
+
+		// Rows win condition
+	function checkRows(b){
+		// BLOCK SCOPE
+		{
+			let i;
+			let j;
+
+			for(i=0; i<3; i++){
+				if(b[i][0] === b[i][1] && b[i][0] === b[i][2] && b[i][0] != ""){
+					return b[i][0];
+				}
+			}
+			return null;
+		}
+	}
+
+		// Columns win condition
+	function checkCols(b){
+		// BLOCK SCOPE
+		{
+			let j;
+
+			for(j=0; j<3; j++){
+				if(b[0][j] === b[1][j] && b[0][j] === b[2][j] && b[0][j] != ""){
+					return b[0][j];
+				}
+			}
+			return null;
+		}
+	}
+
+	//check top left to bottom right
+	function checkTopDiagonal(b){
+		{
+			if(b[0][0] === b[1][1] && b[0][0] === b[2][2] && b[0][0] != ""){
+				return b[0][0];
+			}
+			return null;
+		}
+	}
+
+	//check bot left to top right
+	function checkBotDiagonal(b){
+		if(b[2][0] === b[1][1] && b[2][0] === b[0][2] && b[2][0] != ""){
+			return b[2][0];
+		}
+		return null;
+	}
+
+	//check draw
+	function checkCat(tc){
+		if(tc === 9){
+			return "D";
+		}
+		return null;
+	}
+
+	//update scoreboard
+	function incrementScore(str){
+		if(str === game.playerToken){
+			game.playerWins++;
+		}else{
+			game.aiWins++;
+		}
+		$("#playerScore").html("PLAYER</br>" + game.playerWins);
+		$("#aiScore").html("CPU</br>" + game.aiWins);
+	}
 
 });
